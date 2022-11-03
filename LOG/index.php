@@ -25,8 +25,7 @@ if(isset($_SESSION['user'])){
         include_once 'vistas/home.php';
     }else{
         //echo "No existe el usuario";
-        $user =var_dump( $_SESSION);
-        $errorLogin = "Nombre de usuario y/o password incorrecto $user";
+        $errorLogin = "Nombre de usuario y/o password incorrecto";
         include_once 'vistas/login.php';
     }
 }else{
