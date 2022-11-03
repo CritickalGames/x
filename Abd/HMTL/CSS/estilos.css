@@ -1,0 +1,9 @@
+section{
+    display: flex;
+}
+div{
+    display: flex;
+}
+form{
+    margin: 5px;
+}

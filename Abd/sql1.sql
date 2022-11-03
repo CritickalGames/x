@@ -1,0 +1,50 @@
+use AUTOMOTORA;
+
+ALTER TABLE CLIENTE
+    ADD CONSTRAINT pk_CLIENTE PRIMARY KEY (Ci)
+    ;
+
+ALTER TABLE SUCURSAL
+    ADD CONSTRAINT pk_SUCURSAL PRIMARY KEY (IdSucursal)
+    ;
+
+ALTER TABLE VEHICULO
+    ADD CONSTRAINT pk_VEHICULO PRIMARY KEY (Matricula),
+    ADD CONSTRAINT fk_Sucursal_Vehiculo FOREIGN KEY (Sucursal) 
+        REFERENCES SUCURSAL(IdSucursal)
+    ;
+
+ALTER TABLE AUTOS
+    ADD CONSTRAINT fk_Vehiculo_Auto FOREIGN KEY (Matricula) 
+        REFERENCES VEHICULO(Matricula)
+    ;
+
+ALTER TABLE CAMIONETA
+    ADD CONSTRAINT fk_Vehiculo_Camioneta FOREIGN KEY (Matricula)
+        REFERENCES VEHICULO(Matricula)
+    ;
+
+ALTER TABLE FUNCIONARIO
+    ADD CONSTRAINT pk_FUNCIONARIO PRIMARY KEY (IdFuncionario),
+    ADD CONSTRAINT fk_Sucursal_Funcionario FOREIGN KEY (Sucursal)
+        REFERENCES SUCURSAL(IdSucursal)
+    ;
+
+ALTER TABLE ALQUILERES
+    ADD CONSTRAINT pk_ALQUILERES PRIMARY KEY (fechaEntrega),
+    ADD CONSTRAINT fk_Vehiculo_Alquileres FOREIGN KEY (Vehiculo)
+        REFERENCES VEHICULO(Matricula),
+    ADD CONSTRAINT fk_Cliente_Alquiler FOREIGN KEY (Cliente)
+        REFERENCES CLIENTE(Ci)
+    ;
+
+ALTER TABLE VENTAS
+    ADD CONSTRAINT fk_Vehiculo_Ventas FOREIGN KEY (Vehiculo) 
+        REFERENCES VEHICULO(Matricula),
+    ADD CONSTRAINT fk_Cliente_Ventas FOREIGN KEY (Cliente) 
+        REFERENCES CLIENTE(Ci),
+    ADD CONSTRAINT fk_ALQUILERES FOREIGN KEY (fechaEntrega) 
+        REFERENCES ALQUILERES(fechaEntrega),
+    ADD CONSTRAINT fk_FUNCIONARIO FOREIGN KEY (Funcionario) 
+        REFERENCES FUNCIONARIO(IdFuncionario)
+    ;
