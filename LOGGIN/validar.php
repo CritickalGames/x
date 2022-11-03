@@ -5,7 +5,7 @@ $password=$_POST['password'];
 
 
 
-$consulta="SELECT*FROM usuarios where usuario='$usuario' and password='$password'";
+$consulta="SELECT*FROM usuarios where username='$usuario' and password='$password'";
 $resultado=mysqli_query($conexion,$consulta);
 
 $filas=mysqli_num_rows($resultado);
