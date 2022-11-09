@@ -2,13 +2,15 @@
 
 require_once "Require.php";
 
-class Admin{
+class Backoffice{
 
-    function listar(string $tabla){
+    function mostrarPrimerosX(string $tabla, int $ultimos, array $valores){
         $objAnime = new ControladorAnime();
         switch (strtolower($tabla)) {
             case "anime":
-                var_dump ($objAnime->listar()[count($objAnime->listar())-1]);
+                $by = "listarAnime".$valores[0];
+                $contar = "contarAnime".$valores[0];
+                return ($objAnime->{$by}($valores[1])[$ultimos-1]);
                 break;
             case "estado":
                 echo "i es igual a 1";
@@ -20,11 +22,62 @@ class Admin{
         
     }
 
+    function mostrarUltimosX(string $tabla, int $ultimos, array $valores){
+        $objAnime = new ControladorAnime();
+        switch (strtolower($tabla)) {
+            case "anime":
+                $by = "listarAnime".$valores[0];
+                $contar = "contarAnime".$valores[0];
+                return ($objAnime->{$by}($valores[1])[$objAnime->{$contar}($valores[1])-$ultimos]);
+                break;
+            case "estado":
+                echo "i es igual a 1";
+                break;
+            case "estado":
+                echo "i es igual a 2";
+                break;
+        }
+        
+    }
+
+
+    function contar(string $tabla){
+        $objAnime = new ControladorAnime();
+        switch (strtolower($tabla)) {
+            case "anime":
+                return $objAnime->contarAnime();
+                break;
+            case "estado":
+                echo "i es igual a 1";
+                break;
+            case "estado":
+                echo "i es igual a 2";
+                break;
+        }
+        
+    }
+
+    function listar(string $tabla, array $valores){
+        $objAnime = new ControladorAnime();
+        switch (strtolower($tabla)) {
+            case "anime":
+                $by = "listarAnime".$valores[0];
+                return ($objAnime->{$by}($valores[1]));
+                break;
+            case "estado":
+                echo "i es igual a 1";
+                break;
+            case "estado":
+                echo "i es igual a 2";
+                break;
+        }
+        
+    }
     function subir(string $tabla, array $valores){
         $objAnime = new ControladorAnime();
         switch (strtolower($tabla)) {
             case "anime":
-                $objAnime->setAnime($valores[0], $valores[1], $valores[2] );
+                return($objAnime->setAnime($valores[0], $valores[1], $valores[2]));
                 break;
             case "estado":
                 echo "i es igual a 1";
@@ -64,6 +117,55 @@ class Admin{
                 break;
         }
     }
+
+    function agruparPor(string $tabla, array $valores){
+        $objAnime = new ControladorAnime();
+        switch (strtolower($tabla)) {
+            case "anime":
+                $by = "groupAnimeBy".$valores[0];
+                return ($objAnime->{$by}($valores[1]));
+                break;
+            case "estado":
+                echo "i es igual a 1";
+                break;
+            case "estado":
+                echo "i es igual a 2";
+                break;
+        }
+    }
+
+    function buscar(string $tabla, string $valores){
+        $objAnime = new ControladorAnime();
+        switch (strtolower($tabla)) {
+            case "anime":
+                $by = "buscarAnimeByName";
+                return ($objAnime->buscarAnimeByName($valores));
+                break;
+            case "estado":
+                echo "i es igual a 1";
+                break;
+            case "estado":
+                echo "i es igual a 2";
+                break;
+        }
+    }
+
+    function conseguir(string $tabla, array $valores){
+        $objAnime = new ControladorAnime();
+        switch (strtolower($tabla)) {
+            case "anime":
+                $by = "getAnimeBy".$valores[0];
+                return ($objAnime->{$by}($valores[1], $valores[2]));
+                break;
+            case "estado":
+                echo "i es igual a 1";
+                break;
+            case "estado":
+                echo "i es igual a 2";
+                break;
+        }
+    }
+
 
 }
 /*

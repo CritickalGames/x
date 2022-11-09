@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <?php 
-    require 'PHP/Secundarios/conexion.php';
+    require 'PHPP/Secundarios/conexion.php';
 ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
 <div>
 <!------------------------------------------------------------------------>
 <!------------------------------------------------------------------------>
-<form method="POST" action="PHP/Subir.php">
+<form method="POST" action="PHPP/Subir.php">
             <h2>ingresar:</h2>
             <select name="Tabla" placeholder="Tabla">
                 <option value="Anime">Anime</option>
@@ -41,7 +41,7 @@
         </form>
 <!------------------------------------------------------------>
 <!------------------------------------------------------------------------>
-<form method="POST" action="PHP/Buscar.php">
+<form method="POST" action="PHPP/Buscar.php">
             <h2>Buscar Por:</h2>
             <p>ID</p>
             <input type="text" name="Inicial" placeholder="Inicial">
@@ -58,7 +58,7 @@
 <div>
 <!------------------------------------------------------------------------>
 <!------------------------------------------------------------------------>
-<form method="POST" action="PHP/Eliminar.php">
+<form method="POST" action="PHPP/Eliminar.php">
             <h2>eliminar:</h2>
             <select name="Tabla" placeholder="Tabla">
                 <option value="Anime">Anime</option>
@@ -72,7 +72,7 @@
         </form>
 <!------------------------------------------------------------------------>
 <!------------------------------------------------------------------------>
-<form method="POST" action="PHP/Editar.php">
+<form method="POST" action="PHPP/Editar.php">
             <h2>editar:</h2>
             <select name="Tabla" placeholder="Tabla">
                 <option value="Anime">Anime</option>

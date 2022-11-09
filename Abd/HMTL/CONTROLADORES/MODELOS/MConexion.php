@@ -29,7 +29,7 @@ class ModeloConexion
   public function get(string $sql){
     $result=$this->consulta($sql)[1];
     if(mysqli_num_rows($result)>0){
-      $row= mysqli_fetch_all($result);
+      $row= $result -> fetch_all(MYSQLI_ASSOC);
       return $row;  
           
     }else{
@@ -43,7 +43,6 @@ class ModeloConexion
   }
 
 }
-
 
 
 ?>
