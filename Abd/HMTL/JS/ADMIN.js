@@ -11,14 +11,48 @@ function main() {
 
 
 function btnAnime() {
+    let btn = $("#btnANIME");
+    switch (btn.text()) {
+        case "Subir":
+            let inicial = document.getElementById("inicialANIME").value;
+            let nombre = document.getElementById("nombreANIME").value;
+            $.ajax({
+                type:"POST",
+                url:"PHP/Anime1/Subir.php",
+                data:{inicial:inicial,nombre:nombre},
+                //dataType: "json",
+                success:function(res){
+                    //alert(res);
+                }
+            });
+        break;
+        case "Borrar":
+            
+        break;
+        case "Buscar":
+            
+        break;
+        case "Editar":
+            
+        break;
+        case "Listar":
+            
+        break;
+        case "Inicial":
+            
+        break;
     
+        default:
+            alert(btn.text());
+            break;
+    }
 }
 
 function selectAnime(params) {
     let select = $("#sANIME").val();
     let btn = $("#btnANIME");
 
-    alert(select);
+    btn.text(select);
 }
 
 
