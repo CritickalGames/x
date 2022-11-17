@@ -1,6 +1,34 @@
 window.addEventListener("load", main);
+window.addEventListener("load", main2);
+
 
 function main() {
+    document.getElementById("btnANIME")
+        .addEventListener("click", btnAnime);
+    document.getElementById("sANIME")
+        .addEventListener("change", selectAnime);
+}
+
+
+function btnAnime() {
+    
+}
+
+function selectAnime(params) {
+    let select = $("#sANIME").val();
+    let btn = $("#btnANIME");
+
+    alert(select);
+}
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+function main2() {
     document.getElementById("subir").addEventListener("click", subir);
     document.getElementById("borrar").addEventListener("click", borrar);
     document.getElementById("editar").addEventListener("click", editar);
