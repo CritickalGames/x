@@ -1,5 +1,5 @@
 <?php
-require_once "USER/Admin.php";
+require_once "../USER/Admin.php";
     $objUserAdmin = new UserAdmin();
 
     $inicial = $_POST['inicial'];
