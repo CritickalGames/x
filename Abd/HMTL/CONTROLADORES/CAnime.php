@@ -1,6 +1,6 @@
 <?php
 
-require_once "Require.php";
+require_once "RModelos.php";
 
 class ControladorAnime extends ModeloAnime
 {
@@ -42,7 +42,7 @@ class ControladorAnime extends ModeloAnime
         return $this->get_All();
     }
 
-    public function listarAnimeByInicial($inicial){
+    public function listarAnimeByInicial($Inicial){
         return $this->getByInicial($Inicial);
     }
 

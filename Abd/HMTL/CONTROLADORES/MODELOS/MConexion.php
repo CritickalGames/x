@@ -23,7 +23,6 @@ class ModeloConexion
 
   public function sentencia(string $sql){
     $conexion=$this->consulta($sql)[0];
-    $stmt = $conexion->query($sql);
   }
 
   public function get(string $sql){

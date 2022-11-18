@@ -14,20 +14,30 @@ function btnAnime() {
     let btn = $("#btnANIME");
     switch (btn.text()) {
         case "Subir":
-            let inicial = document.getElementById("inicialANIME").value;
-            let nombre = document.getElementById("nombreANIME").value;
+            let inicialSUBIR = document.getElementById("inicialANIME").value;
+            let nombreSUBIR = document.getElementById("nombreANIME").value;
             $.ajax({
                 type:"POST",
-                url:"PHP/Anime1/Subir.php",
-                data:{inicial:inicial,nombre:nombre},
+                url:"PHP/Anime/Subir.php",
+                data:{inicial:inicialSUBIR,nombre:nombreSUBIR},
                 //dataType: "json",
                 success:function(res){
-                    //alert(res);
+                    alert(res);
+                    //alert("ID: "+res.Inicial+"-"+res.Id+" Nombre: "+res.nombre);
                 }
             });
         break;
         case "Borrar":
-            
+            let IdIBORRAR = document.getElementById("inicialANIME").value;
+            let IdNBORRAR = document.getElementById("nombreANIME").value;
+            $.ajax({
+                type:"POST",
+                url:"PHP/Anime/Borrar.php",
+                data:{IdIBORRAR:IdIBORRAR,IdNBORRAR:IdNBORRAR},
+                success:function(res){
+                    alert(res);
+                }
+            });
         break;
         case "Buscar":
             
@@ -39,7 +49,41 @@ function btnAnime() {
             
         break;
         case "Inicial":
-            
+            let inicialINICIAL = document.getElementById("inicialANIME").value;
+            //$("#noBorrar").nextAll("tr").children().remove();
+            $.ajax({
+                type:"POST",
+                url:"PHP/Anime/Inicial.php",
+                data:{inicial:inicialINICIAL},
+                dataType: "json",
+                success:function(res){
+
+                    let data = JSON.stringify(res);
+                    data = JSON.parse(data);
+                    let tabla = document.getElementById("tableAnime");
+                    for (elemento of data) {
+                        //alert("entra");
+                        let fila = tabla.insertRow();
+                        let celda0 = fila.insertCell();
+                        celda0.innerHTML="";
+                        
+                        let celda1 = fila.insertCell();
+                        celda1.innerHTML=elemento.Inicial+elemento.Id;
+
+                        let celda2 = fila.insertCell();
+                        celda2.innerHTML=elemento.nombre;
+                        //alert("funciona");
+                        let celda3 = fila.insertCell();
+                        celda3.innerHTML="";
+
+                        let celda4 = fila.insertCell();
+                        celda4.innerHTML="";
+
+                        let celda5 = fila.insertCell();
+                        celda5.innerHTML="";
+                    }  
+                }
+            });
         break;
     
         default:

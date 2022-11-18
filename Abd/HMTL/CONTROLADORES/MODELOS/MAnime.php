@@ -13,19 +13,19 @@ class ModeloAnime extends ModeloConexion
     }
 ///////////////////Borrar
     public function borrar($Inicial, $ID){
-        $sql = "DELETE FROM `anime` WHERE `IdAnime`='$Inicial' AND `Id`=$ID";
+        $sql = "DELETE FROM anime WHERE Inicial='$Inicial' AND Id=$ID ";
         $this->sentencia($sql);
     }
 ///////////////////Search
     public function buscar($Name){
-        $sql="SELECT * FROM `anime` WHERE nombre LIKE '%$Name%'";
+        $sql="SELECT * FROM 'anime' WHERE nombre LIKE '%$Name%'";
         return $this->get($sql);
     }
 ///////////////////Edit
     public function editar($Inicial, $ID, $name){
-        $sql = "UPDATE `anime` 
-        SET `nombre`='$name' 
-        WHERE IdAnime='$Inicial' AND Id=$ID";
+        $sql = "UPDATE 'anime' 
+        SET 'nombre'='$name' 
+        WHERE Id='$Inicial' AND Id=$ID";
         $this->sentencia($sql);
     }
 ///////////////////Get
@@ -45,7 +45,7 @@ class ModeloAnime extends ModeloConexion
     }
 ///////////////////Group
     public function groupByInicial($Inicial){
-        $sql = "SELECT Inicial, count(Inicial) FROM `anime` WHERE Inicial='$Inicial' GROUP BY Inicial";
+        $sql = "SELECT Inicial, count(Inicial) FROM 'anime' WHERE Inicial='$Inicial' GROUP BY Inicial";
         return $this->get($sql) ;
     }
 ///////////////////////////////

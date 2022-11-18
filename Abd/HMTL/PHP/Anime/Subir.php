@@ -1,25 +1,21 @@
 <?php
-require_once "../USER/Admin.php";
+require_once "D:/xampp/htdocs/x/Abd/HMTL/PHP/USER/Admin.php";
     $objUserAdmin = new UserAdmin();
 
-    $inicial = $_POST['inicial'];
-    $nombre = $_POST['nombre'];
     
+    if ($_POST) {
+        $inicial = strtoupper($_POST['inicial']);
+        $nombre = $_POST['nombre'];
+
+        $ultimaTupla =  $objUserAdmin->listarAnimePorInicial($inicial);
+    $numeroDeTuplas = count($objUserAdmin->listarAnimePorInicial($inicial));
+    $IDdelUltimo =  intval($ultimaTupla[$numeroDeTuplas-1]["Id"]);
 
     if (($inicial!=NULL) && ($nombre!=NULL)) {
-        $ultimaTupla = $objUserAdmin->mostrarUltimosXAnimeWhere(1,"IdAnime='$inicial'");
-        $IDdelUltimo =  intval($ultimaTupla[0]["IdNumero"]);
-        
-        $count = $objUserAdmin->agruparAnimePorInicial($inicial);
-        
-        $totalTupla = $count[0]["count(IdAnime)"];
-        
-        $lista = $objUserAdmin->mostrarPrimerosXAnimeWhere($totalTupla,"IdAnime='$inicial'");
-    
-        if (($IDdelUltimo!=$totalTupla)) {
+        if (($IDdelUltimo!=$numeroDeTuplas)) {
             $bool = true;
-            for ($j=0, $i=1; $j <$totalTupla ; $j++) { 
-                $IdNumerica=$lista[$j]["IdNumero"];
+            for ($j=0, $i=1; $j <$numeroDeTuplas ; $j++) { 
+                $IdNumerica=$ultimaTupla[$j]["Id"];
                 if ($bool) {
                     for ($i; $i <= $IDdelUltimo; $i++) { 
                         if ($IdNumerica==$i) {
@@ -38,15 +34,20 @@ require_once "../USER/Admin.php";
                 }
             }
         }else{
-            $objUserAdmin->subirAnime("$inicial",($totalTupla+1),"$nombre");
-                $subido=$objUserAdmin->conseguirAnimeById("$inicial", ($totalTupla+1));
+            $objUserAdmin->subirAnime("$inicial",($numeroDeTuplas+1),"$nombre");
+                $subido=$objUserAdmin->conseguirAnimeById("$inicial", ($numeroDeTuplas+1));
                 echo json_encode($subido[0]);
         }
     
     }else{
-        echo "Inicial: $inicial <br>";
-        echo "Nombre: $nombre <br>";
+    $ultimaTupla =  $objUserAdmin->listarAnime();
+    echo json_encode($ultimaTupla[count($objUserAdmin->listarAnime())-1]);
     }
 
+    }else{
+        echo "MAMAHUEVOOOOO";
+    }
+    
+    
     
 ?>

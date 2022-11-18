@@ -41,10 +41,11 @@ class ModeloConexion
   }
 
 }
-    
     $inicial = strtoupper($_POST['inicial']);
     $nombre = $_POST['nombre'];
+    echo $inicial;
     
+
     $obj= new ModeloConexion();
         $ultimaTupla = $obj->get("SELECT * FROM anime WHERE Inicial='z'");
         $numeroDeTuplas = $obj->count("SELECT * FROM anime WHERE Inicial='z'");
