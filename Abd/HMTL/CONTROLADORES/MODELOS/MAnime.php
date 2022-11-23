@@ -18,14 +18,14 @@ class ModeloAnime extends ModeloConexion
     }
 ///////////////////Search
     public function buscar($Name){
-        $sql="SELECT * FROM 'anime' WHERE nombre LIKE '%$Name%'";
+        $sql="SELECT * FROM anime WHERE nombre LIKE '%$Name%'";
         return $this->get($sql);
     }
 ///////////////////Edit
     public function editar($Inicial, $ID, $name){
-        $sql = "UPDATE 'anime' 
-        SET 'nombre'='$name' 
-        WHERE Id='$Inicial' AND Id=$ID";
+        $sql = "UPDATE anime 
+        SET nombre='$name' 
+        WHERE Inicial='$Inicial' AND Id=$ID";
         $this->sentencia($sql);
     }
 ///////////////////Get

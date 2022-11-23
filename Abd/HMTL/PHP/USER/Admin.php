@@ -10,7 +10,7 @@ class UserAdmin{
 ///////////////////Search
     function buscarAnime(string $name){
         $obj = new Backoffice ();
-        return $obj->buscar("ANIME", $name);
+        return $obj->buscar("ANIME", [$name]);
     }
 ///////////////////Edit
      function editarAnime(string $inicial, string $ID, string $nombre){

@@ -1,5 +1,5 @@
 <?php
-require_once "D:/xampp/htdocs/x/Abd/HMTL/PHP/USER/Admin.php";
+require_once "../USER/Admin.php";
     $objUserAdmin = new UserAdmin();
 
     

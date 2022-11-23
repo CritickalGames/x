@@ -3,6 +3,8 @@ window.addEventListener("load", main2);
 
 
 function main() {
+    ListarPorInicialAnime(["Anime", ""]);
+
     document.getElementById("btnANIME")
         .addEventListener("click", btnAnime);
     document.getElementById("sANIME")
@@ -16,75 +18,43 @@ function btnAnime() {
         case "Subir":
             let inicialSUBIR = document.getElementById("inicialANIME").value;
             let nombreSUBIR = document.getElementById("nombreANIME").value;
-            $.ajax({
-                type:"POST",
-                url:"PHP/Anime/Subir.php",
-                data:{inicial:inicialSUBIR,nombre:nombreSUBIR},
-                //dataType: "json",
-                success:function(res){
-                    alert(res);
-                    //alert("ID: "+res.Inicial+"-"+res.Id+" Nombre: "+res.nombre);
-                }
-            });
+            inicialSUBIR = inicialSUBIR.charAt(0);
+            
+            SubirAnime(["Anime", inicialSUBIR, nombreSUBIR]);
         break;
         case "Borrar":
-            let IdIBORRAR = document.getElementById("inicialANIME").value;
-            let IdNBORRAR = document.getElementById("nombreANIME").value;
-            $.ajax({
-                type:"POST",
-                url:"PHP/Anime/Borrar.php",
-                data:{IdIBORRAR:IdIBORRAR,IdNBORRAR:IdNBORRAR},
-                success:function(res){
-                    alert(res);
-                }
-            });
+            let inicialBORRAR = document.getElementById("inicialANIME").value;
+            let IdBORRAR = inicialBORRAR.slice(1);
+            inicialBORRAR = inicialBORRAR.charAt(0);
+
+            BorrarAnime(["Anime", inicialBORRAR, IdBORRAR]);
         break;
         case "Buscar":
+            let nombreBUSCAR = document.getElementById("nombreANIME").value;
             
+            BuscarAnime(["Anime", nombreBUSCAR]);
         break;
         case "Editar":
-            
+            let inicialEDITAR = document.getElementById("inicialANIME").value;
+            inicialEDITAR=inicialEDITAR.charAt(0);
+            let idEDITAR = document.getElementById("inicialANIME").value;
+            idEDITAR=idEDITAR.slice(1);
+            let nombreEDITAR = document.getElementById("nombreANIME").value;
+
+            EditarAnime(["Anime", inicialEDITAR, idEDITAR, nombreEDITAR]);
         break;
         case "Listar":
-            
+            ListarAnime(["Anime"]);
         break;
         case "Inicial":
             let inicialINICIAL = document.getElementById("inicialANIME").value;
-            $("#noBorrar").nextAll("tr").remove();
-            $.ajax({
-                type:"POST",
-                url:"PHP/Anime/Inicial.php",
-                data:{inicial:inicialINICIAL},
-                dataType: "json",
-                success:function(res){
-                    let data = JSON.stringify(res);
-                    data = JSON.parse(data);
-                    let tabla = document.getElementById("tableAnime");
-                    for (elemento of data) {
-                        //alert("entra");
-                        let fila = tabla.insertRow();
-                        let celda0 = fila.insertCell();
-                        celda0.innerHTML="";
-                        
-                        let celda1 = fila.insertCell();
-                        celda1.innerHTML=elemento.Inicial+elemento.Id;
+            inicialINICIAL = inicialINICIAL.charAt(0);
 
-                        let celda2 = fila.insertCell();
-                        celda2.innerHTML=elemento.nombre;
-                        //alert("funciona");
-                        let celda3 = fila.insertCell();
-                        celda3.innerHTML="";
-
-                        let celda4 = fila.insertCell();
-                        celda4.innerHTML="";
-
-                        let celda5 = fila.insertCell();
-                        celda5.innerHTML="";
-                    }  
-                }
-            });
+            ListarPorInicialAnime(["Anime", inicialINICIAL]);
         break;
-    
+        case "Contar":
+            ContarAnime(["Anime"]);
+        break;
         default:
             alert(btn.text());
             break;
@@ -98,6 +68,184 @@ function selectAnime(params) {
     btn.text(select);
 }
 
+///////////////////////////////////////////////////////////////
+function SubirAnime(valores) {
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Subir.php",
+        data:{inicial:valores[1],nombre:valores[2]},
+        //dataType: "json",
+        success:function(res){
+            ListarPorInicialAnime(["Anime", valores[1]]);
+            //alert(res);
+            //alert("ID: "+res.Inicial+"-"+res.Id+" Nombre: "+res.nombre);
+        }
+    });
+}
+function BorrarAnime(valores) {
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Borrar.php",
+        data:{IdIBORRAR:valores[1],IdNBORRAR:valores[2]},
+        success:function(res){
+            ListarPorInicialAnime(["Anime", valores[1]]);
+            //alert(res);
+        }
+    });
+}
+function ListarPorInicialAnime(valores) {
+    $("#noBorrar").nextAll("tr").remove();
+
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Inicial.php",
+        data:{inicial:valores[1]},
+        dataType: "json",
+        success:function(res){
+            let data = JSON.stringify(res);
+            data = JSON.parse(data);
+            let tabla = document.getElementById("tableAnime");
+            for (elemento of data) {
+                //alert("entra");
+                let fila = tabla.insertRow();
+                let celda0 = fila.insertCell();
+                celda0.innerHTML="";
+                
+                let celda1 = fila.insertCell();
+                celda1.innerHTML=elemento.Inicial+elemento.Id;
+                                
+                let celda2 = fila.insertCell();
+                celda2.innerHTML=elemento.nombre;
+                //alert("funciona");
+                let celda3 = fila.insertCell();
+                celda3.innerHTML="";
+
+                let celda4 = fila.insertCell();
+                celda4.innerHTML="";
+
+                let celda5 = fila.insertCell();
+                celda5.innerHTML="";
+            }  
+        }
+    });
+}
+function BuscarAnime(valores) {
+    $("#noBorrar").nextAll("tr").remove();
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Buscar.php",
+        data:{nombre:valores[1]},
+        dataType: "json",
+        success:function(res){
+            let data = JSON.stringify(res);
+            data = JSON.parse(data);
+            let tabla = document.getElementById("tableAnime");
+            for (elemento of data) {
+                //alert("entra");
+                let fila = tabla.insertRow();
+                let celda0 = fila.insertCell();
+                celda0.innerHTML="";
+                
+                let celda1 = fila.insertCell();
+                celda1.innerHTML=elemento.Inicial+elemento.Id;
+
+                let celda2 = fila.insertCell();
+                celda2.innerHTML=elemento.nombre;
+                //alert("funciona");
+                let celda3 = fila.insertCell();
+                celda3.innerHTML="";
+
+                let celda4 = fila.insertCell();
+                celda4.innerHTML="";
+
+                let celda5 = fila.insertCell();
+                celda5.innerHTML="";
+            }
+        }
+    });
+}
+function EditarAnime(valores) {
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Editar.php",
+        data:{inicial:valores[1],id:valores[2],nombre:valores[3]},
+        success:function(res){
+            ListarPorInicialAnime(["Anime", valores[1]]);
+        }
+    });
+}
+function ListarAnime(valores) {
+    $("#noBorrar").nextAll("tr").remove();
+
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Listar.php",
+        dataType: "json",
+        success:function(res){
+            let data = JSON.stringify(res);
+            data = JSON.parse(data);
+            let tabla = document.getElementById("tableAnime");
+            for (elemento of data) {
+                //alert("entra");
+                let fila = tabla.insertRow();
+                let celda0 = fila.insertCell();
+                celda0.innerHTML="";
+                
+                let celda1 = fila.insertCell();
+                celda1.innerHTML=elemento.Inicial+elemento.Id;
+                                
+                let celda2 = fila.insertCell();
+                celda2.innerHTML=elemento.nombre;
+                //alert("funciona");
+                let celda3 = fila.insertCell();
+                celda3.innerHTML="";
+
+                let celda4 = fila.insertCell();
+                celda4.innerHTML="";
+
+                let celda5 = fila.insertCell();
+                celda5.innerHTML="";
+            }  
+        }
+    });
+}
+
+function ContarAnime(valores) {
+    $("#noBorrar").nextAll("tr").remove();
+
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Contar.php",
+        dataType: "json",
+        success:function(res){
+            let data = JSON.stringify(res);
+            alert(data);
+            data = JSON.parse(data);
+            let tabla = document.getElementById("tableAnime");
+            for (elemento of data) {
+                //alert("entra");
+                let fila = tabla.insertRow();
+                let celda0 = fila.insertCell();
+                celda0.innerHTML="";
+                
+                let celda1 = fila.insertCell();
+                celda1.innerHTML=elemento.Inicial+elemento.Id;
+                                
+                let celda2 = fila.insertCell();
+                celda2.innerHTML=elemento.nombre;
+                //alert("funciona");
+                let celda3 = fila.insertCell();
+                celda3.innerHTML="";
+
+                let celda4 = fila.insertCell();
+                celda4.innerHTML="";
+
+                let celda5 = fila.insertCell();
+                celda5.innerHTML="";
+            }  
+        }
+    });
+}
 
 
 

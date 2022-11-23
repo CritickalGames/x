@@ -9,10 +9,8 @@ require_once "../USER/Admin.php";
 
 
     if (($inicial!=NULL)&&($id!=NULL)&&($nombre!=NULL)) {
-        $objUserAdmin->editarAnime("$inicial", $id, "$nombre");
+        $objUserAdmin->editarAnime($inicial, $id, $nombre);
     
-        $subido=$objUserAdmin->conseguirAnimeById("$inicial", $id);
-        var_dump($subido[0]);
     }else{
         echo "Inicial: $inicial <br>";
         echo "ID: $id <br>";
