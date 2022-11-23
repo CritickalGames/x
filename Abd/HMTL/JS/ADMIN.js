@@ -222,17 +222,17 @@ function ContarAnime(valores) {
             alert(data);
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
-            for (elemento of data) {
                 //alert("entra");
                 let fila = tabla.insertRow();
                 let celda0 = fila.insertCell();
-                celda0.innerHTML="";
+                
+                celda0.innerHTML=JSON.stringify(data);
                 
                 let celda1 = fila.insertCell();
-                celda1.innerHTML=elemento.Inicial+elemento.Id;
+                celda1.innerHTML="";
                                 
                 let celda2 = fila.insertCell();
-                celda2.innerHTML=elemento.nombre;
+                celda2.innerHTML="";
                 //alert("funciona");
                 let celda3 = fila.insertCell();
                 celda3.innerHTML="";
@@ -242,7 +242,6 @@ function ContarAnime(valores) {
 
                 let celda5 = fila.insertCell();
                 celda5.innerHTML="";
-            }  
         }
     });
 }
