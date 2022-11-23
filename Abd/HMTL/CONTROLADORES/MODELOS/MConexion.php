@@ -18,15 +18,15 @@ class ModeloConexion
   public function consulta(string $sql){
     $conexion=$this->conectar();
     $result=mysqli_query($conexion,$sql);
-    return [$conexion,$result];
+    return $result;
   }
 
   public function sentencia(string $sql){
-    $conexion=$this->consulta($sql)[0];
+    $this->consulta($sql);
   }
 
   public function get(string $sql){
-    $result=$this->consulta($sql)[1];
+    $result=$this->consulta($sql);
     if(mysqli_num_rows($result)>0){
       $row= $result -> fetch_all(MYSQLI_ASSOC);
       return $row;  
@@ -37,7 +37,7 @@ class ModeloConexion
   }
 
   public function count(string $sql){
-    $result=$this->consulta($sql)[1];
+    $result=$this->consulta($sql);
     return mysqli_num_rows($result);
   }
 

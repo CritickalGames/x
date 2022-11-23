@@ -50,14 +50,13 @@ function btnAnime() {
         break;
         case "Inicial":
             let inicialINICIAL = document.getElementById("inicialANIME").value;
-            //$("#noBorrar").nextAll("tr").children().remove();
+            $("#noBorrar").nextAll("tr").remove();
             $.ajax({
                 type:"POST",
                 url:"PHP/Anime/Inicial.php",
                 data:{inicial:inicialINICIAL},
                 dataType: "json",
                 success:function(res){
-
                     let data = JSON.stringify(res);
                     data = JSON.parse(data);
                     let tabla = document.getElementById("tableAnime");
