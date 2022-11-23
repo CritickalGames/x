@@ -43,11 +43,6 @@ class ModeloAnime extends ModeloConexion
         $sql="SELECT * from anime where Nombre='$Nombre'";
         return $this->get($sql);
     }
-///////////////////Group
-    public function groupByInicial($Inicial){
-        $sql = "SELECT Inicial, count(Inicial) FROM 'anime' WHERE Inicial='$Inicial' GROUP BY Inicial";
-        return $this->get($sql) ;
-    }
 ///////////////////////////////
     public function get_ALL(){
         $sql="SELECT * from anime";

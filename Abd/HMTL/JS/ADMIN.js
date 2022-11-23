@@ -4,7 +4,8 @@ window.addEventListener("load", main2);
 
 function main() {
     ListarPorInicialAnime(["Anime", ""]);
-
+    selectAnime();
+    
     document.getElementById("btnANIME")
         .addEventListener("click", btnAnime);
     document.getElementById("sANIME")
@@ -53,7 +54,6 @@ function btnAnime() {
             ListarPorInicialAnime(["Anime", inicialINICIAL]);
         break;
         case "Contar":
-            ContarAnime(["Anime"]);
         break;
         default:
             alert(btn.text());
@@ -61,14 +61,105 @@ function btnAnime() {
     }
 }
 
-function selectAnime(params) {
+function selectAnime() {
     let select = $("#sANIME").val();
     let btn = $("#btnANIME");
 
     btn.text(select);
+
+    $("#btnANIME").prop('disabled', false);
+    $("#inicialANIME").prop('disabled', false).attr("placeholder", "Inicial e ID");
+    $("#nombreANIME").prop('disabled', false).attr("placeholder", "Nombre");
+    $("#tempESTADO").prop('disabled', false).attr("placeholder", "Temporada");
+    $("#capESTADO").prop('disabled', false).attr("placeholder", "Capitulo");
+    $("#estadoESTADO").prop('disabled', false).attr("placeholder", "Estado");
+    $("#starESTADO").prop('disabled', false).attr("placeholder", "Opinión");
+
+    switch (select) {
+        case "Subir":
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+        case "Borrar":
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+        case "Buscar":
+            $("#inicialANIME").prop('disabled', true);
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+        case "Editar":
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+        case "Listar":
+            ListarAnime(["Anime"]);
+            $("#btnANIME").prop('disabled', true);
+            $("#inicialANIME").prop('disabled', true);
+            $("#nombreANIME").prop('disabled', true);
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+        case "Inicial":
+            $("#nombreANIME").prop('disabled', true);
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+        case "Contar":
+            ContarAnime(["Anime"]);
+            $("#btnANIME").prop('disabled', true);
+            $("#inicialANIME").prop('disabled', true);
+            $("#nombreANIME").prop('disabled', true);
+            $("#tempESTADO").prop('disabled', true);
+            $("#capESTADO").prop('disabled', true);
+            $("#estadoESTADO").prop('disabled', true);
+            $("#starESTADO").prop('disabled', true);
+        break;
+    
+        default:
+            break;
+    }
 }
 
 ///////////////////////////////////////////////////////////////
+function tablaAnime(elemento, tabla) {
+    //alert("entra");
+    let fila = tabla.insertRow();
+    let celda0 = fila.insertCell();
+    celda0.innerHTML="";
+    
+    let celda1 = fila.insertCell();
+    celda1.innerHTML=elemento.Inicial+elemento.Id;
+                    
+    let celda2 = fila.insertCell();
+    celda2.innerHTML=elemento.nombre;
+    //alert("funciona");
+    let celda3 = fila.insertCell();
+    celda3.innerHTML="";
+
+    let celda4 = fila.insertCell();
+    celda4.innerHTML="";
+
+    let celda5 = fila.insertCell();
+    celda5.innerHTML="";
+
+    let celda6 = fila.insertCell();
+    celda6.innerHTML="";
+}
+
 function SubirAnime(valores) {
     $.ajax({
         type:"POST",
@@ -106,25 +197,7 @@ function ListarPorInicialAnime(valores) {
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
             for (elemento of data) {
-                //alert("entra");
-                let fila = tabla.insertRow();
-                let celda0 = fila.insertCell();
-                celda0.innerHTML="";
-                
-                let celda1 = fila.insertCell();
-                celda1.innerHTML=elemento.Inicial+elemento.Id;
-                                
-                let celda2 = fila.insertCell();
-                celda2.innerHTML=elemento.nombre;
-                //alert("funciona");
-                let celda3 = fila.insertCell();
-                celda3.innerHTML="";
-
-                let celda4 = fila.insertCell();
-                celda4.innerHTML="";
-
-                let celda5 = fila.insertCell();
-                celda5.innerHTML="";
+                tablaAnime(elemento, tabla);
             }  
         }
     });
@@ -186,25 +259,7 @@ function ListarAnime(valores) {
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
             for (elemento of data) {
-                //alert("entra");
-                let fila = tabla.insertRow();
-                let celda0 = fila.insertCell();
-                celda0.innerHTML="";
-                
-                let celda1 = fila.insertCell();
-                celda1.innerHTML=elemento.Inicial+elemento.Id;
-                                
-                let celda2 = fila.insertCell();
-                celda2.innerHTML=elemento.nombre;
-                //alert("funciona");
-                let celda3 = fila.insertCell();
-                celda3.innerHTML="";
-
-                let celda4 = fila.insertCell();
-                celda4.innerHTML="";
-
-                let celda5 = fila.insertCell();
-                celda5.innerHTML="";
+                tablaAnime(elemento, tabla);
             }  
         }
     });
@@ -219,7 +274,6 @@ function ContarAnime(valores) {
         dataType: "json",
         success:function(res){
             let data = JSON.stringify(res);
-            alert(data);
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
                 //alert("entra");
@@ -242,6 +296,9 @@ function ContarAnime(valores) {
 
                 let celda5 = fila.insertCell();
                 celda5.innerHTML="";
+
+                let celda6 = fila.insertCell();
+                celda6.innerHTML="";
         }
     });
 }

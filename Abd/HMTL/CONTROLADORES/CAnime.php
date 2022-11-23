@@ -35,7 +35,7 @@ class ControladorAnime extends ModeloAnime
     }
 ///////////////////Group
     public function groupAnimeByInicial(string $Valor){
-        return $this->groupByInicial("IdAnime", $Valor);
+        return $this->groupByInicial($Valor);
     }
 ///////////////////Listar
     public function listarAnimeByAll(){
