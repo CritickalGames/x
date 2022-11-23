@@ -8,7 +8,7 @@ class ModeloAnime extends ModeloConexion
     public function set($IDA,$IDN,$NAME)
     {
         $sql = "INSERT INTO anime (Inicial, Id, nombre) 
-        VALUES ('$IDA','$IDN','$NAME')";
+            VALUES ('$IDA','$IDN','$NAME')";
         $this->sentencia($sql);
     }
 ///////////////////Borrar
