@@ -1,155 +1,207 @@
 window.addEventListener("load", main);
-window.addEventListener("load", main2);
 
 
 function main() {
-    ListarPorInicialAnime(["Anime", ""]);
     selectAnime();
     
-    document.getElementById("btnANIME")
-        .addEventListener("click", btnAnime);
+    
+    document.getElementById("nombreANIME")
+        .addEventListener("keyup", actualizarLista);
+    document.getElementById("nombreANIME")
+        .addEventListener("change", actualizarLista);
     document.getElementById("sANIME")
         .addEventListener("change", selectAnime);
-    document.getElementById("nombreANIME")
-        .addEventListener("change", selectAnime);
+    document.getElementById("btnANIME")
+        .addEventListener("click", btnAnime);
 }
-
-
-function btnAnime() {
-    let btn = $("#btnANIME");
-    switch (btn.text()) {
-        case "Subir":
-            let nombreSUBIR = document.getElementById("nombreANIME").value;
-            
-            SubirAnime(["Anime", nombreSUBIR]);
-        break;
-        case "Borrar":
-            let nombreBORRAR = document.getElementById("nombreANIME").value;
-
-            BorrarAnime(["Anime", nombreBORRAR]);
-        break;
-        case "Buscar":
-            let nombreBUSCAR = document.getElementById("nombreANIME").value;
-            
-            BuscarAnime(["Anime", nombreBUSCAR]);
-        break;
-        case "Editar":
-        break;
-        case "Listar":
-            ListarAnime(["Anime"]);
-        break;
-        case "Inicial":
-            let nombreINICIAL = document.getElementById("nombreANIME").value;
-            nombreINICIAL = nombreINICIAL.charAt(0);
-
-            if (ListarPorInicialAnime(["Anime", nombreINICIAL])) {
-            }
-        break;
+function actualizarLista() {
+    let select = $("#sANIME").val();
+    let nombre = document.getElementById("nombreANIME").value;
+    
+    switch (select) {
         case "Contar":
         break;
-        case "Nuevo Capitlo":
+        case "Nuevo Capitulo":
+            BuscarAnimeAll(["ANIME", nombre]);
         break;
         case "Editar Estado":
+            BuscarAnimeAll(["ANIME", nombre]);
+        break;
+        case "Buscar":
+            BuscarAnimeAll(["ANIME", nombre]);
         break;
         default:
+            BuscarAnimeNombre(["ANIME", nombre]);
             break;
     }
+    
 }
-
 function selectAnime() {
     let select = $("#sANIME").val();
     let btn = $("#btnANIME");
-
+    actualizarLista();
     btn.text(select);
 
     $("#btnANIME").prop('disabled', false);
     $("#nombreANIME").prop('disabled', false).attr("placeholder", "Nombre");
-    $("#tempESTADO").prop('disabled', false).attr("placeholder", "Temporada");
-    $("#capESTADO").prop('disabled', false).attr("placeholder", "Capitulo");
+    $("#temporadaESTADO").prop('disabled', false).attr("placeholder", "Temporada");
+    $("#capituloESTADO").prop('disabled', false).attr("placeholder", "Capitulo");
     $("#estadoESTADO").prop('disabled', false).attr("placeholder", "Estado");
-    $("#starESTADO").prop('disabled', false).attr("placeholder", "Opinión");
+    $("#opinon").prop('disabled', false).attr("placeholder", "Opinión");
 
     switch (select) {
         case "Subir":
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
         case "Borrar":
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
         case "Buscar":
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
         case "Editar":
             $("#btnANIME").prop('disabled', true);
             $("#nombreANIME").prop('disabled', true);
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
         case "Listar":
             ListarAnime(["Anime"]);
             $("#btnANIME").prop('disabled', true);
-            $("#nombreANIME").prop('disabled', true);
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
         case "Inicial":
-            ListarPorInicialAnime(["Anime", ""]);
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            actualizarLista();
+
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
         case "Contar":
             ContarAnime(["Anime"]);
             $("#btnANIME").prop('disabled', true);
             $("#nombreANIME").prop('disabled', true);
-            $("#tempESTADO").prop('disabled', true);
-            $("#capESTADO").prop('disabled', true);
+            $("#temporadaESTADO").prop('disabled', true);
+            $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
-            $("#starESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
+        break;
+        case "Editar Estado":
+            $("#capituloESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
+        break;
+        case "Nuevo Capitulo":
+            $("#estadoESTADO").prop('disabled', true);
+            $("#opinon").prop('disabled', true);
         break;
     
         default:
             break;
     }
 }
-
-///////////////////////////////////////////////////////////////
-function tablaAnime(elemento, tabla) {
-    //alert("entra");
-    let fila = tabla.insertRow();
-    let celda0 = fila.insertCell();
-    celda0.innerHTML="";
-    
-    let celda1 = fila.insertCell();
-    celda1.innerHTML=elemento.nombre;
-                    
-    let celda2 = fila.insertCell();
-    celda2.innerHTML="";
-    //alert("funciona");
-    let celda3 = fila.insertCell();
-    celda3.innerHTML="";
-
-    let celda4 = fila.insertCell();
-    celda4.innerHTML="";
-
-    let celda5 = fila.insertCell();
-    celda5.innerHTML="";
+function btnAnime() {
+    let btn = $("#btnANIME");
+    let nombre = document.getElementById("nombreANIME").value;
+    let temporada = document.getElementById("temporadaESTADO").value;
+    let capitulo = document.getElementById("capituloESTADO").value;
+    let estado = document.getElementById("estadoESTADO").value;
+    switch (btn.text()) {
+        case "Subir":
+            SubirAnime(["ANIME", nombre]);
+        break;
+        case "Borrar":
+            BorrarAnime(["ANIME", nombre]);
+        break;
+        case "Buscar":
+        break;
+        case "Editar":
+        break;
+        case "Listar":
+            ListarAnime(["ANIME"]);
+        break;
+        case "Inicial":
+        break;
+        case "Contar":
+        break;
+        case "Nuevo Capitulo":
+            SubirEstado(["ESTADOS", nombre, temporada, capitulo, estado]);
+        break;
+        case "Editar Estado":
+        break;
+        case "Opinión":
+        break;
+        default:
+            break;
+    }
 }
 
+
+
+///////////////////////////////////////////////////////////////
+function tablaAnime(elemento, fila) {
+    //alert("entra");
+    let nombre = fila.insertCell();
+    if (elemento.nombre) {
+        nombre.innerHTML=elemento.nombre;
+        
+        nombre.setAttribute("style", "cursor:pointer");
+        nombre.setAttribute("class", "btn-success text-dark");
+        nombre.addEventListener("click", (e)=>{
+            alert(nombre.innerText);
+            $("#nombreANIME").val(nombre.innerText);
+        });
+        
+    }else{
+        nombre.innerHTML="";
+    }
+}
+
+function tablaEstado(elemento, fila){
+    if ((elemento.temporada)&&(elemento.capitulo)&&(elemento.estado)) {
+        let temporada = fila.insertCell();
+        temporada.innerHTML=elemento.temporada;
+        //alert("funciona");
+        let capitulo = fila.insertCell();
+        capitulo.innerHTML=elemento.capitulo;
+    
+        let estado = fila.insertCell();
+        estado.innerHTML=elemento.estado;
+    
+    }else{
+        let temporada = fila.insertCell();
+        temporada.innerHTML="";
+        //alert("funciona");
+        let capitulo = fila.insertCell();
+        capitulo.innerHTML="";
+    
+        let estado = fila.insertCell();
+        estado.innerHTML="";
+    }
+    let celda5 = fila.insertCell();
+        celda5.innerHTML="";
+}
+
+function celdaVacia(contenido, fila) {
+    let vacio = fila.insertCell();
+                
+    vacio.innerHTML=contenido;
+}
+///////////////////////////////////////////////////////////////
 function SubirAnime(valores) {
     $.ajax({
         type:"POST",
@@ -157,10 +209,10 @@ function SubirAnime(valores) {
         data:{nombre:valores[1]},
         //dataType: "json",
         success:function(res){
-            //alert(res);
-            valores[1] = valores[1].charAt(0);
+            alert(res);
+            //valores[1] = valores[1].charAt(0);
             //alert(valores[1]);
-            ListarPorInicialAnime(["Anime", valores[1]]);
+            //ListarPorInicialAnime(["ANIME", valores[1]]);
             //alert(res);
             //alert("ID: "+res.Inicial+"-"+res.Id+" Nombre: "+res.nombre);
         }
@@ -173,14 +225,57 @@ function BorrarAnime(valores) {
         data:{nombre:valores[1]},
         success:function(res){
             //alert(res);
-            valores[1] = valores[1].charAt(0);
-            ListarPorInicialAnime(["Anime", valores[1]]);
+            //valores[1] = valores[1].charAt(0);
+            //ListarPorInicialAnime(["ANIME", valores[1]]);
             //alert(res);
         }
     });
 }
-function ListarPorInicialAnime(valores) {
+
+function BuscarAnimeAll(valores) {
     $("#noBorrar").nextAll("tr").remove();
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/BuscarAll.php",
+        data:{nombre:valores[1]},
+        dataType: "json",
+        success:function(res){
+            let data = JSON.stringify(res);
+            data = JSON.parse(data);
+            let tabla = document.getElementById("tableAnime");
+            for (elemento of data) {
+                let fila = tabla.insertRow();
+                celdaVacia("", fila);
+                tablaAnime(elemento, fila);
+                tablaEstado(elemento, fila);
+            }
+        }
+    });
+}
+
+function BuscarAnimeNombre(valores) {
+    $("#noBorrar").nextAll("tr").remove();
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/BuscarNombre.php",
+        data:{nombre:valores[1]},
+        dataType: "json",
+        success:function(res){
+            let data = JSON.stringify(res);
+            data = JSON.parse(data);
+            let tabla = document.getElementById("tableAnime");
+            for (elemento of data) {
+                let fila = tabla.insertRow();
+                celdaVacia("", fila);
+                tablaAnime(elemento, fila);
+                tablaEstado(elemento, fila);
+            }
+        }
+    });
+}
+
+function ListarPorInicialAnime(valores) {
+    $("#noBorrar").nextAll("tr").remove();//AGREGAR UNA ANIMACIÓN AL DESAPARECER Y REAPARECER
 
     $.ajax({
         type:"POST",
@@ -192,29 +287,17 @@ function ListarPorInicialAnime(valores) {
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
             for (elemento of data) {
-                tablaAnime(elemento, tabla);
+                let fila = tabla.insertRow();
+                celdaVacia("", fila);
+
+                tablaAnime(elemento, fila);
+                tablaEstado(elemento, fila);
             } 
         }
     });
 
 }
-function BuscarAnime(valores) {
-    $("#noBorrar").nextAll("tr").remove();
-    $.ajax({
-        type:"POST",
-        url:"PHP/"+valores[0]+"/Buscar.php",
-        data:{nombre:valores[1]},
-        dataType: "json",
-        success:function(res){
-            let data = JSON.stringify(res);
-            data = JSON.parse(data);
-            let tabla = document.getElementById("tableAnime");
-            for (elemento of data) {
-                tablaAnime(elemento, tabla);
-            }
-        }
-    });
-}
+
 
 function ListarAnime(valores) {
     $("#noBorrar").nextAll("tr").remove();
@@ -228,7 +311,11 @@ function ListarAnime(valores) {
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
             for (elemento of data) {
-                tablaAnime(elemento, tabla);
+                let fila = tabla.insertRow();
+                celdaVacia("", fila);
+
+                tablaAnime(elemento, fila);
+                tablaEstado(elemento, fila);
             }  
         }
     });
@@ -247,122 +334,25 @@ function ContarAnime(valores) {
             let tabla = document.getElementById("tableAnime");
                 //alert("entra");
                 let fila = tabla.insertRow();
-                let celda0 = fila.insertCell();
-                
-                celda0.innerHTML=JSON.stringify(data);
-                
-                let celda1 = fila.insertCell();
-                celda1.innerHTML="";
-                                
-                let celda2 = fila.insertCell();
-                celda2.innerHTML="";
-                //alert("funciona");
-                let celda3 = fila.insertCell();
-                celda3.innerHTML="";
-
-                let celda4 = fila.insertCell();
-                celda4.innerHTML="";
-
-                let celda5 = fila.insertCell();
-                celda5.innerHTML="";
+                celdaVacia(JSON.stringify(data), fila);
+                tablaAnime("", fila);
+                tablaEstado("", fila);
         }
     });
 }
 
-
-
-
-
-
-///////////////////////////////////////////////////////////////
-function main2() {
-    document.getElementById("subir").addEventListener("click", subir);
-    document.getElementById("borrar").addEventListener("click", borrar);
-    document.getElementById("editar").addEventListener("click", editar);
-    document.getElementById("listar").addEventListener("click", listar);
-    document.getElementById("buscar").addEventListener("click", buscar);
-    document.getElementById("conseguir").addEventListener("click", conseguir);
-}
-
-function subir() {
-    let inicial = document.getElementById("inicialSubir").value;
-    let nombre = document.getElementById("nameSubir").value;
+function SubirEstado(valores) {
     $.ajax({
         type:"POST",
-        url:"PHP/SubirAnime.php",
-        data:{inicial:inicial,nombre:nombre},
-        dataType: "json",
+        url:"PHP/"+valores[0]+"/Subir.php",
+        data:{nombre:valores[1],temporada:valores[2],capitulo:valores[3],estado:valores[4]},
         success:function(res){
-        }
-    });
-}
-function borrar() {
-    let inicial = document.getElementById("inicialBorrar").value;
-    let id = document.getElementById("idBorrar").value;
-    $.ajax({
-        type:"POST",
-        url:"PHP/BorrarAnime.php",
-        data:{inicial:inicial,id:id},
-        success:function(res){
-        }
-    });
-}
-function editar() {
-    let inicial = document.getElementById("inicialEditar").value;
-    let id = document.getElementById("idEditar").value;insertCell
-    let nombre = document.getElementById("nameEditar").value;
-    $.ajax({
-        type:"POST",
-        url:"PHP/EditarAnime.php",
-        data:{inicial:inicial,id:id,nombre:nombre},
-        success:function(res){
-        }
-    });
-}
-function listar() {
-    let inicial = document.getElementById("inicialListar").value;
-    $("#noBorrar").nextAll("tr").children().remove();
-    $.ajax({
-        type:"POST",
-        url:"PHP/ListarInicialAnime.php",
-        data:{inicial:inicial},
-        dataType: "json",
-        success:function(res){
+            actualizarLista()
 
-            let data = JSON.stringify(res);
-            data = JSON.parse(data);
-            let tabla = document.getElementById("table1");
-            for (elemento of data) {
-                //alert("entra");
-                let fila = tabla.insertRow();
-                let celda0 = fila.insertCell();
-                celda0.innerHTML=elemento.IdAnime+elemento.IdNumero;
-
-                let celda2 = fila.insertCell();
-                celda2.innerHTML=elemento.nombre;
-                //alert("funciona");
-            }  
-        }
-    });
-}
-function buscar() {
-    let nombre = document.getElementById("nameBuscar").value;
-    $.ajax({
-        type:"POST",
-        url:"PHP/BuscarAnime.php",
-        data:{nombre:nombre},
-        success:function(res){
-        }
-    });
-}
-function conseguir() {
-    let inicial = document.getElementById("inicialConseguir").value;
-    let id = document.getElementById("idConseguir").value;
-    $.ajax({
-        type:"POST",
-        url:"PHP/ConseguirAnime.php",
-        data:{inicial:inicial,id:id},
-        success:function(res){
+            //alert(res);
+            //valores[1] = valores[1].charAt(0);
+            //ListarPorInicialAnime(["ANIME", valores[1]]);
+            //alert(res);
         }
     });
 }
