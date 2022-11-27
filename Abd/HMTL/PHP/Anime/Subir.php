@@ -3,7 +3,12 @@ require_once "../USER/Admin.php";
     $objUserAdmin = new UserAdmin();
 
     
+    //$nombre = "z";
     $nombre = $_POST['nombre'];
 
-    $objUserAdmin->subirAnime("$nombre");
+    if ($nombre!= NULL) {
+        $objUserAdmin->subirAnime("$nombre");
+    }else{
+        echo "Algo salió mal";
+    }
 ?>

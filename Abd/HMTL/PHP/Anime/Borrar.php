@@ -5,7 +5,7 @@ require_once "../USER/Admin.php";
     $nombre = strtoupper($_POST['nombre']);
 
 
-    if (($nombre!=NULL)&&($id!=NULL)) {
+    if (($nombre!=NULL)) {
         $objUserAdmin->borrarAnime($nombre);
     }else{
         echo "Inicial: $nombre <br>";

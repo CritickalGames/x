@@ -13,7 +13,7 @@ class ModeloAnime extends ModeloConexion
     }
 ///////////////////Borrar
     public function borrar($NAME){
-        $sql = "DELETE FROM anime WHERE Inicial='$NAME'";
+        $sql = "DELETE FROM anime WHERE nombre='$NAME'";
         $this->sentencia($sql);
     }
 ///////////////////Search

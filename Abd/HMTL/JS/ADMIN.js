@@ -10,6 +10,8 @@ function main() {
         .addEventListener("click", btnAnime);
     document.getElementById("sANIME")
         .addEventListener("change", selectAnime);
+    document.getElementById("nombreANIME")
+        .addEventListener("change", selectAnime);
 }
 
 
@@ -18,7 +20,6 @@ function btnAnime() {
     switch (btn.text()) {
         case "Subir":
             let nombreSUBIR = document.getElementById("nombreANIME").value;
-            inicialSUBIR = inicialSUBIR.charAt(0);
             
             SubirAnime(["Anime", nombreSUBIR]);
         break;
@@ -42,13 +43,11 @@ function btnAnime() {
             nombreINICIAL = nombreINICIAL.charAt(0);
 
             if (ListarPorInicialAnime(["Anime", nombreINICIAL])) {
-                alert(nombreINICIAL);
             }
         break;
         case "Contar":
         break;
         default:
-            alert(btn.text());
             break;
     }
 }
@@ -103,6 +102,7 @@ function selectAnime() {
             $("#starESTADO").prop('disabled', true);
         break;
         case "Inicial":
+            ListarPorInicialAnime(["Anime", ""]);
             $("#tempESTADO").prop('disabled', true);
             $("#capESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
@@ -153,6 +153,9 @@ function SubirAnime(valores) {
         data:{nombre:valores[1]},
         //dataType: "json",
         success:function(res){
+            //alert(res);
+            valores[1] = valores[1].charAt(0);
+            //alert(valores[1]);
             ListarPorInicialAnime(["Anime", valores[1]]);
             //alert(res);
             //alert("ID: "+res.Inicial+"-"+res.Id+" Nombre: "+res.nombre);
@@ -165,6 +168,8 @@ function BorrarAnime(valores) {
         url:"PHP/"+valores[0]+"/Borrar.php",
         data:{nombre:valores[1]},
         success:function(res){
+            //alert(res);
+            valores[1] = valores[1].charAt(0);
             ListarPorInicialAnime(["Anime", valores[1]]);
             //alert(res);
         }
@@ -172,7 +177,6 @@ function BorrarAnime(valores) {
 }
 function ListarPorInicialAnime(valores) {
     $("#noBorrar").nextAll("tr").remove();
-    alert("HOLO");
 
     $.ajax({
         type:"POST",
@@ -180,7 +184,6 @@ function ListarPorInicialAnime(valores) {
         data:{inicial:valores[1]},
         dataType: "json",
         success:function(res){
-            alert("Entró");
             let data = JSON.stringify(res);
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
@@ -286,7 +289,6 @@ function subir() {
         data:{inicial:inicial,nombre:nombre},
         dataType: "json",
         success:function(res){
-            alert("ID:"+res.IdAnime+res.IdNumero+"-Nombre:"+res.nombre);
         }
     });
 }
@@ -298,7 +300,6 @@ function borrar() {
         url:"PHP/BorrarAnime.php",
         data:{inicial:inicial,id:id},
         success:function(res){
-            alert(res);
         }
     });
 }
@@ -311,7 +312,6 @@ function editar() {
         url:"PHP/EditarAnime.php",
         data:{inicial:inicial,id:id,nombre:nombre},
         success:function(res){
-            alert(res);
         }
     });
 }
@@ -348,7 +348,6 @@ function buscar() {
         url:"PHP/BuscarAnime.php",
         data:{nombre:nombre},
         success:function(res){
-            alert(res);
         }
     });
 }
@@ -360,7 +359,6 @@ function conseguir() {
         url:"PHP/ConseguirAnime.php",
         data:{inicial:inicial,id:id},
         success:function(res){
-            alert(res);
         }
     });
 }
