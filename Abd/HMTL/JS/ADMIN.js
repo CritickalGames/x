@@ -47,6 +47,10 @@ function btnAnime() {
         break;
         case "Contar":
         break;
+        case "Nuevo Capitlo":
+        break;
+        case "Editar Estado":
+        break;
         default:
             break;
     }
