@@ -17,18 +17,15 @@ function btnAnime() {
     let btn = $("#btnANIME");
     switch (btn.text()) {
         case "Subir":
-            let inicialSUBIR = document.getElementById("inicialANIME").value;
             let nombreSUBIR = document.getElementById("nombreANIME").value;
             inicialSUBIR = inicialSUBIR.charAt(0);
             
-            SubirAnime(["Anime", inicialSUBIR, nombreSUBIR]);
+            SubirAnime(["Anime", nombreSUBIR]);
         break;
         case "Borrar":
-            let inicialBORRAR = document.getElementById("inicialANIME").value;
-            let IdBORRAR = inicialBORRAR.slice(1);
-            inicialBORRAR = inicialBORRAR.charAt(0);
+            let nombreBORRAR = document.getElementById("nombreANIME").value;
 
-            BorrarAnime(["Anime", inicialBORRAR, IdBORRAR]);
+            BorrarAnime(["Anime", nombreBORRAR]);
         break;
         case "Buscar":
             let nombreBUSCAR = document.getElementById("nombreANIME").value;
@@ -36,22 +33,17 @@ function btnAnime() {
             BuscarAnime(["Anime", nombreBUSCAR]);
         break;
         case "Editar":
-            let inicialEDITAR = document.getElementById("inicialANIME").value;
-            inicialEDITAR=inicialEDITAR.charAt(0);
-            let idEDITAR = document.getElementById("inicialANIME").value;
-            idEDITAR=idEDITAR.slice(1);
-            let nombreEDITAR = document.getElementById("nombreANIME").value;
-
-            EditarAnime(["Anime", inicialEDITAR, idEDITAR, nombreEDITAR]);
         break;
         case "Listar":
             ListarAnime(["Anime"]);
         break;
         case "Inicial":
-            let inicialINICIAL = document.getElementById("inicialANIME").value;
-            inicialINICIAL = inicialINICIAL.charAt(0);
+            let nombreINICIAL = document.getElementById("nombreANIME").value;
+            nombreINICIAL = nombreINICIAL.charAt(0);
 
-            ListarPorInicialAnime(["Anime", inicialINICIAL]);
+            if (ListarPorInicialAnime(["Anime", nombreINICIAL])) {
+                alert(nombreINICIAL);
+            }
         break;
         case "Contar":
         break;
@@ -68,7 +60,6 @@ function selectAnime() {
     btn.text(select);
 
     $("#btnANIME").prop('disabled', false);
-    $("#inicialANIME").prop('disabled', false).attr("placeholder", "Inicial e ID");
     $("#nombreANIME").prop('disabled', false).attr("placeholder", "Nombre");
     $("#tempESTADO").prop('disabled', false).attr("placeholder", "Temporada");
     $("#capESTADO").prop('disabled', false).attr("placeholder", "Capitulo");
@@ -89,13 +80,14 @@ function selectAnime() {
             $("#starESTADO").prop('disabled', true);
         break;
         case "Buscar":
-            $("#inicialANIME").prop('disabled', true);
             $("#tempESTADO").prop('disabled', true);
             $("#capESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
             $("#starESTADO").prop('disabled', true);
         break;
         case "Editar":
+            $("#btnANIME").prop('disabled', true);
+            $("#nombreANIME").prop('disabled', true);
             $("#tempESTADO").prop('disabled', true);
             $("#capESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
@@ -104,7 +96,6 @@ function selectAnime() {
         case "Listar":
             ListarAnime(["Anime"]);
             $("#btnANIME").prop('disabled', true);
-            $("#inicialANIME").prop('disabled', true);
             $("#nombreANIME").prop('disabled', true);
             $("#tempESTADO").prop('disabled', true);
             $("#capESTADO").prop('disabled', true);
@@ -112,7 +103,6 @@ function selectAnime() {
             $("#starESTADO").prop('disabled', true);
         break;
         case "Inicial":
-            $("#nombreANIME").prop('disabled', true);
             $("#tempESTADO").prop('disabled', true);
             $("#capESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
@@ -121,7 +111,6 @@ function selectAnime() {
         case "Contar":
             ContarAnime(["Anime"]);
             $("#btnANIME").prop('disabled', true);
-            $("#inicialANIME").prop('disabled', true);
             $("#nombreANIME").prop('disabled', true);
             $("#tempESTADO").prop('disabled', true);
             $("#capESTADO").prop('disabled', true);
@@ -142,10 +131,10 @@ function tablaAnime(elemento, tabla) {
     celda0.innerHTML="";
     
     let celda1 = fila.insertCell();
-    celda1.innerHTML=elemento.Inicial+elemento.Id;
+    celda1.innerHTML=elemento.nombre;
                     
     let celda2 = fila.insertCell();
-    celda2.innerHTML=elemento.nombre;
+    celda2.innerHTML="";
     //alert("funciona");
     let celda3 = fila.insertCell();
     celda3.innerHTML="";
@@ -155,16 +144,13 @@ function tablaAnime(elemento, tabla) {
 
     let celda5 = fila.insertCell();
     celda5.innerHTML="";
-
-    let celda6 = fila.insertCell();
-    celda6.innerHTML="";
 }
 
 function SubirAnime(valores) {
     $.ajax({
         type:"POST",
         url:"PHP/"+valores[0]+"/Subir.php",
-        data:{inicial:valores[1],nombre:valores[2]},
+        data:{nombre:valores[1]},
         //dataType: "json",
         success:function(res){
             ListarPorInicialAnime(["Anime", valores[1]]);
@@ -177,7 +163,7 @@ function BorrarAnime(valores) {
     $.ajax({
         type:"POST",
         url:"PHP/"+valores[0]+"/Borrar.php",
-        data:{IdIBORRAR:valores[1],IdNBORRAR:valores[2]},
+        data:{nombre:valores[1]},
         success:function(res){
             ListarPorInicialAnime(["Anime", valores[1]]);
             //alert(res);
@@ -186,6 +172,7 @@ function BorrarAnime(valores) {
 }
 function ListarPorInicialAnime(valores) {
     $("#noBorrar").nextAll("tr").remove();
+    alert("HOLO");
 
     $.ajax({
         type:"POST",
@@ -193,14 +180,16 @@ function ListarPorInicialAnime(valores) {
         data:{inicial:valores[1]},
         dataType: "json",
         success:function(res){
+            alert("Entró");
             let data = JSON.stringify(res);
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
             for (elemento of data) {
                 tablaAnime(elemento, tabla);
-            }  
+            } 
         }
     });
+
 }
 function BuscarAnime(valores) {
     $("#noBorrar").nextAll("tr").remove();
@@ -214,39 +203,12 @@ function BuscarAnime(valores) {
             data = JSON.parse(data);
             let tabla = document.getElementById("tableAnime");
             for (elemento of data) {
-                //alert("entra");
-                let fila = tabla.insertRow();
-                let celda0 = fila.insertCell();
-                celda0.innerHTML="";
-                
-                let celda1 = fila.insertCell();
-                celda1.innerHTML=elemento.Inicial+elemento.Id;
-
-                let celda2 = fila.insertCell();
-                celda2.innerHTML=elemento.nombre;
-                //alert("funciona");
-                let celda3 = fila.insertCell();
-                celda3.innerHTML="";
-
-                let celda4 = fila.insertCell();
-                celda4.innerHTML="";
-
-                let celda5 = fila.insertCell();
-                celda5.innerHTML="";
+                tablaAnime(elemento, tabla);
             }
         }
     });
 }
-function EditarAnime(valores) {
-    $.ajax({
-        type:"POST",
-        url:"PHP/"+valores[0]+"/Editar.php",
-        data:{inicial:valores[1],id:valores[2],nombre:valores[3]},
-        success:function(res){
-            ListarPorInicialAnime(["Anime", valores[1]]);
-        }
-    });
-}
+
 function ListarAnime(valores) {
     $("#noBorrar").nextAll("tr").remove();
 
@@ -296,9 +258,6 @@ function ContarAnime(valores) {
 
                 let celda5 = fila.insertCell();
                 celda5.innerHTML="";
-
-                let celda6 = fila.insertCell();
-                celda6.innerHTML="";
         }
     });
 }

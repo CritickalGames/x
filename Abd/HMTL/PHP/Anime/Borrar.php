@@ -2,16 +2,12 @@
 require_once "../USER/Admin.php";
     $objUserAdmin = new UserAdmin();
 
-    $inicial = strtoupper($_POST['IdIBORRAR']);
-    $id = $_POST['IdNBORRAR'];
+    $nombre = strtoupper($_POST['nombre']);
 
 
-    if (($inicial!=NULL)&&($id!=NULL)) {
-            $subido=$objUserAdmin->conseguirAnimeById($inicial, $id);
-            var_dump($subido[0]);
-        $objUserAdmin->borrarAnime($inicial, $id);
+    if (($nombre!=NULL)&&($id!=NULL)) {
+        $objUserAdmin->borrarAnime($nombre);
     }else{
-        echo "Inicial: $inicial <br>";
-        echo "ID: $id <br>";
+        echo "Inicial: $nombre <br>";
     }
 ?>

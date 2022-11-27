@@ -4,9 +4,9 @@ require_once "RAPIs.php";
 class UserAdmin{
 ////////ANIME/////////////////////////////////////////
 ///////////////////Borrar
-    function borrarAnime(string $inicial, string $id){
+    function borrarAnime(string $nombre){
         $obj = new Backoffice ();
-        return $obj->borrar("ANIME", [$inicial, $id]);
+        return $obj->borrar("ANIME", [$nombre]);
     }
 ///////////////////Search
     function buscarAnime(string $name){
@@ -14,39 +14,39 @@ class UserAdmin{
         return $obj->buscar("ANIME", [$name]);
     }
 ///////////////////Edit
-     function editarAnime(string $inicial, string $ID, string $nombre){
+     function editarAnime(string $nombre ){
         $obj = new Backoffice ();
-        return $obj->editar("ANIME",[$inicial, $ID, $nombre]);
+        return $obj->editar("ANIME",[$nombre]);
     }
 ///////////////////Get
-    function conseguirAnimeById(string $inicial, string $ID){
+    function conseguirAnimeById(string $nombre){
         $obj = new Backoffice ();
-        return $obj->conseguir("ANIME",["Id", $inicial, $ID]);
+        return $obj->conseguir("ANIME",["Id", $nombre]);
     }
 
-    function conseguirAnimeByInicial(string $inicial){
+    function conseguirAnimeBynombre(string $nombre){
         $obj = new Backoffice ();
-        return $obj->conseguir("ANIME",["Inicial", $inicial]);
+        return $obj->conseguir("ANIME",["nombre", $nombre]);
     }
 ///////////////////Group
-    function agruparAnimePorInicial(string $inicial){
+    function agruparAnimePorNombre(string $nombre){
         $obj = new Backoffice ();
-        return $obj->agruparPor("ANIME", ["Inicial", "IdAnime = '$inicial'"]);
+        return $obj->agruparPor("ANIME", ["nombre", "nombre = '$nombre'"]);
     }   
 ///////////////////Listar
     function listarAnime(){
         $obj = new Backoffice ();
         return $obj->listar("ANIME", ["All", "ALL"]);
     }
-    function listarAnimePorInicial(string $inicial){
+    function listarAnimePorInicial(string $nombre){
         $obj = new Backoffice ();
-        return $obj->listar("ANIME", ["Inicial", $inicial]);
+        return $obj->listar("ANIME", ["inicial", $nombre]);
     }
 
-    function subirAnime(string $inicial, string $id, string $nombre){
+    function subirAnime(string $nombre ){
         $obj = new Backoffice ();
         
-        $obj->subir("ANIME", ["$inicial","$id","$nombre"]);
+        $obj->subir("ANIME", ["$nombre"]);
     }
 /////////////////////////
     function contarAnime(){
@@ -54,11 +54,12 @@ class UserAdmin{
         return $obj->contar("ANIME");
     }
 }
+/*
 /////////ESTADOS//////////////////////////
 ///////////////////Borrar
-    function borrarAnime(string $inicial, string $id){
+    function borrarAnime(string $nombre){
         $obj = new Backoffice ();
-        return $obj->borrar("ANIME", [$inicial, $id]);
+        return $obj->borrar("ANIME", [$nombre]);
     }
 ///////////////////Search
     function buscarAnime(string $name){
@@ -66,24 +67,15 @@ class UserAdmin{
         return $obj->buscar("ANIME", [$name]);
     }
 ///////////////////Edit
-    function editarAnime(string $inicial, string $ID, string $nombre){
-        $obj = new Backoffice ();
-        return $obj->editar("ANIME",[$inicial, $ID, $nombre]);
-    }
 ///////////////////Get
-    function conseguirAnimeById(string $inicial, string $ID){
+    function conseguirAnimeByNombre(string $nombre){
         $obj = new Backoffice ();
-        return $obj->conseguir("ANIME",["Id", $inicial, $ID]);
-    }
-
-    function conseguirAnimeByInicial(string $inicial){
-        $obj = new Backoffice ();
-        return $obj->conseguir("ANIME",["Inicial", $inicial]);
+        return $obj->conseguir("ANIME",["nombre", $nombre]);
     }
 ///////////////////Group
-    function agruparAnimePorInicial(string $inicial){
+    function agruparAnimePorNombre(string $nombre){
         $obj = new Backoffice ();
-        return $obj->agruparPor("ANIME", ["Inicial", "IdAnime = '$inicial'"]);
+        return $obj->agruparPor("ANIME", ["nombre", "IdAnime = '$nombre'"]);
     }   
 ///////////////////Listar
     function listarAnime(){
@@ -91,15 +83,15 @@ class UserAdmin{
         return $obj->listar("ANIME", ["All", "ALL"]);
     }
 
-    function listarAnimePorInicial(string $inicial){
+    function listarAnimePorNombre(string $nombre){
         $obj = new Backoffice ();
-        return $obj->listar("ANIME", ["Inicial", $inicial]);
+        return $obj->listar("ANIME", ["nombre", $nombre]);
     }
 
-    function subirAnime(string $inicial, string $id, string $nombre){
+    function subirAnime(string $nombre ){
         $obj = new Backoffice ();
         
-        $obj->subir("ANIME", ["$inicial","$id","$nombre"]);
+        $obj->subir("ANIME", ["$nombre"]);
     }
 /////////////////////////
     function contarAnime(){
@@ -108,3 +100,4 @@ class UserAdmin{
     }
 
 ?>
+*/

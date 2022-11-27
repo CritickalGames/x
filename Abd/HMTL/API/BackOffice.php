@@ -41,8 +41,7 @@ class Backoffice{
         switch (strtolower($tabla)) {
             case "anime":
                 $objAnime->borrarAnime(
-                        $valores[0], 
-                        $valores[1]);
+                        $valores[0]);
                 break;
             case "estado":
                 echo "i es igual a 1";
@@ -75,8 +74,7 @@ class Backoffice{
             case "anime":
                 $by = "getAnimeBy".$valores[0];
                 return ($objAnime->{$by}(
-                        $valores[1], 
-                        $valores[2]));
+                        $valores[1]));
                 break;
             case "estado":
                 echo "i es igual a 1";
@@ -91,11 +89,6 @@ class Backoffice{
         $objAnime = new ControladorAnime();
         switch (strtolower($tabla)) {
             case "anime":
-                $by = "editarAnime";
-                $objAnime->{$by}(
-                        $valores[0], 
-                        $valores[1],
-                        $valores[2]);
                 break;
             case "estado":
                 echo "i es igual a 1";
@@ -126,7 +119,7 @@ class Backoffice{
         $objAnime = new ControladorAnime();
         switch (strtolower($tabla)) {
             case "anime":
-                return($objAnime->setAnime($valores[0], $valores[1], $valores[2]));
+                return($objAnime->setAnime($valores[0]));
                 break;
             case "estado":
                 echo "i es igual a 1";

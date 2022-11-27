@@ -5,15 +5,15 @@ require_once "MConexion.php";
 
 class ModeloAnime extends ModeloConexion
 {
-    public function set($IDA,$IDN,$NAME)
+    public function set($NAME)
     {
-        $sql = "INSERT INTO anime (Inicial, Id, nombre) 
-            VALUES ('$IDA','$IDN','$NAME')";
+        $sql = "INSERT INTO anime (nombre) 
+            VALUES ('$NAME')";
         $this->sentencia($sql);
     }
 ///////////////////Borrar
-    public function borrar($Inicial, $ID){
-        $sql = "DELETE FROM anime WHERE Inicial='$Inicial' AND Id=$ID ";
+    public function borrar($NAME){
+        $sql = "DELETE FROM anime WHERE Inicial='$NAME'";
         $this->sentencia($sql);
     }
 ///////////////////Search
@@ -22,45 +22,35 @@ class ModeloAnime extends ModeloConexion
         return $this->get($sql);
     }
 ///////////////////Edit
-    public function editar($Inicial, $ID, $name){
-        $sql = "UPDATE anime 
-        SET nombre='$name' 
-        WHERE Inicial='$Inicial' AND Id=$ID";
-        $this->sentencia($sql);
-    }
-///////////////////Get
-    public function getByID($Inicial, $ID){
-        $sql="SELECT * from anime where Inicial='$Inicial' AND Id = $ID";
-        return $this->get($sql);
-    }
 
+///////////////////Get
     public function getByInicial($Inicial){
-        $sql="SELECT * from anime where Inicial='$Inicial'";
+        $sql="SELECT * FROM anime WHERE nombre LIKE '$Inicial%'";
         return $this->get($sql);
     }
 
     public function getByNombre($Nombre){
-        $sql="SELECT * from anime where Nombre='$Nombre'";
+        $sql="SELECT * FROM anime where Nombre='$Nombre'";
         return $this->get($sql);
     }
 ///////////////////////////////
     public function get_ALL(){
-        $sql="SELECT * from anime";
+        $sql="SELECT * FROM anime";
         return $this->get($sql);
     }
 
     public function get_ALL_Where(string $where){
-        $sql="SELECT * from anime WHERE $where";
+        $sql="SELECT * FROM anime WHERE $where";
         return $this->get($sql);
     }
 
     public function contar(){
-        $sql="SELECT * from anime";
+        $sql="SELECT * FROM anime";
         return $this->count($sql);
     }
 
     public function contarWhere(string $where){
-        $sql="SELECT * from anime WHERE $where";
+        $sql="SELECT * FROM anime WHERE $where";
         return $this->count($sql);
     }
 }

@@ -7,7 +7,7 @@ class ModeloConexion
     $server = 'localhost:3306';
     $usuario = 'root';
     $contraseña = '';
-    $basededatos = 'anime';
+    $basededatos = 'animeLive';
     $conexion = new mysqli($server, $usuario, $contraseña, $basededatos);
     if($conexion->connect_error){
       die("conexion fallida" . $conexion->connect_error);
@@ -15,18 +15,18 @@ class ModeloConexion
     return $conexion;
   }
 
-  public function consulta(string $sql){
+  public function consultar(string $sql){
     $conexion=$this->conectar();
     $result=mysqli_query($conexion,$sql);
     return $result;
   }
 
   public function sentencia(string $sql){
-    $this->consulta($sql);
+    $this->consultar($sql);
   }
 
   public function get(string $sql){
-    $result=$this->consulta($sql);
+    $result=$this->consultar($sql);
     if(mysqli_num_rows($result)>0){
       $row= $result -> fetch_all(MYSQLI_ASSOC);
       return $row;  
@@ -37,7 +37,7 @@ class ModeloConexion
   }
 
   public function count(string $sql){
-    $result=$this->consulta($sql);
+    $result=$this->consultar($sql);
     return mysqli_num_rows($result);
   }
 

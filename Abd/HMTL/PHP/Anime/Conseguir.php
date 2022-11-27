@@ -2,16 +2,14 @@
 require_once "../USER/Admin.php";
 $objUserAdmin = new UserAdmin();
 
-$inicial = $_POST['inicial'];
-$id = $_POST['id'];
+$nombre = $_POST['nombre'];
 
-if (($inicial!=NULL) && ($id!=NULL)) {
+if (($nombre!=NULL)) {
     
-    $subido=$objUserAdmin->conseguirAnimeById("$inicial", $id);
+    $subido=$objUserAdmin->conseguirAnimeById("$nombre", $id);
         var_dump($subido[0]);
 }else{
-    echo "Inicial: $inicial <br>";
-    echo "ID: $id <br>";
+    echo "Inicial: $nombre <br>";
 }
 
 ?>

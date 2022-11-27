@@ -5,34 +5,19 @@ require_once "RModelos.php";
 class ControladorAnime extends ModeloAnime
 {
 
-    public function setAnime($IDA,$IDN,$NAME){
-        $IDA = strtoupper($IDA);
-        $this->set($IDA,$IDN,$NAME);
+    public function setAnime($NAME){
+        $this->set($NAME);
     }
 ///////////////////Borrar
-    public function borrarAnime($inicial, $ID){
-        $inicial = strtoupper($inicial);
-        $this->borrar($inicial, $ID);
+    public function borrarAnime($NAME){
+        $this->borrar($NAME);
     }
 ///////////////////Search
     public function buscarAnimeByName($Name){
         return $this->buscar($Name);
     }
 ///////////////////Edit
-    public function editarAnime($inicial, $ID, $name){
-        $inicial = strtoupper($inicial);
-        $this->editar($inicial, $ID, $name);
-    }
 ///////////////////Get
-    public function getAnimeById($Inicial, $ID){
-        $Inicial = strtoupper($Inicial);
-        return $this->getByID($Inicial, $ID);
-    }
-
-    public function getAnimeByInicial($Inicial){
-        $Inicial = strtoupper($Inicial);
-        return $this->getByInicial($Inicial);
-    }
 ///////////////////Group
     public function groupAnimeByInicial(string $Valor){
         return $this->groupByInicial($Valor);
@@ -43,6 +28,7 @@ class ControladorAnime extends ModeloAnime
     }
 
     public function listarAnimeByInicial($Inicial){
+        $Inicial = strtoupper($Inicial);
         return $this->getByInicial($Inicial);
     }
 
