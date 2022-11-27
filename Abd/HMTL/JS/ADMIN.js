@@ -162,7 +162,6 @@ function tablaAnime(elemento, fila) {
         nombre.setAttribute("style", "cursor:pointer");
         nombre.setAttribute("class", "btn-success text-dark");
         nombre.addEventListener("click", (e)=>{
-            alert(nombre.innerText);
             $("#nombreANIME").val(nombre.innerText);
         });
         
