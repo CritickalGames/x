@@ -14,7 +14,7 @@ require_once "../USER/Admin.php";
 
     if (($nombre!= NULL)&&($temporada!= NULL)) {
         if (($obj->getEstadosByNombre($nombre, $temporada))) {
-            ($obj->editarEstadosEstado($nombre, $temporada, $estado));
+            echo ($obj->editarEstadosEstado($nombre, $temporada, $estado));
         }else {
             echo "Algo salió mal";
         }

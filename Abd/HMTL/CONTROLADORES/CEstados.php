@@ -9,11 +9,11 @@ class ControladorEstados extends ModeloEstados
         $this->set($nombre, $temporada, $cap, $estado);
     }
 ///////////////////Borrar
-    public function borrarEstados($nombre, $temporada){
-        $this->borrar($nombre, $temporada);
+    public function borrarEstados($nombre){
+        $this->borrar($nombre);
     }
 ///////////////////Search
-    public function buscarEstadosByName($Atributo){
+    public function buscarEstadosByNombre($Atributo){
         return $this->buscar($Atributo);
     }
 ///////////////////Edit
@@ -21,11 +21,15 @@ class ControladorEstados extends ModeloEstados
         $this->editarEstado($nombre, $temporada, $ATR);
     }
     public function editarEstadosCapitulo($nombre, $temporada, $ATR){
-        $this->editarCapitulo($nombre, $temporada, $ATR);
+        
+        return "-ENTRÓ".$this->editarCapitulo($nombre, $temporada, $ATR);
     }
 ///////////////////Get
     public function getEstadosByNombre($nombre){
         return $this->getByNombre($nombre);
+    }
+    public function getEstadosByID($nombre, $temporada){
+        return $this->getByID($nombre, $temporada);
     }
 ///////////////////Group
     public function agruparForTemporadaByNombre($nombre){

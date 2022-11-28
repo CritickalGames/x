@@ -77,17 +77,21 @@ class Backoffice{
         
     }
 
-    function conseguir(string $tabla){
+    function conseguir(string $tabla, array $valores){
         
         switch (strtolower($tabla)) {
             case "anime":
                 $obj = new ControladorAnime();
-                return $obj->contarAnime();
+                $by = "getAnimeBy".$valores[0];
+                return ($obj->{$by}(
+                    $valores[1]));
                 break;
             case "estados":
                 $obj = new ControladorEstados();
                 $by = "getEstadosBy".$valores[0];
-                return ($obj->{$by}($valores[1]));
+                return ($obj->{$by}(
+                    $valores[1],
+                    $valores[2]));
                 break;
             case "stado":
                 echo "i es igual a 2";

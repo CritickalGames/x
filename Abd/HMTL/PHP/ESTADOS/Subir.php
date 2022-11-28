@@ -3,7 +3,7 @@ require_once "../USER/Admin.php";
     $obj = new UserAdmin();
 
     
-    //$nombre = "z";
+    //$nombre = "Aharen san";
     //$temporada = 1;
     //$capitulo = 1;
     //$estado = "ver";
@@ -18,15 +18,26 @@ require_once "../USER/Admin.php";
             $estado="ver";
         }elseif (intval($capitulo)>0) {
             $estado="vie";
-        }elseif(intval($capitulo)<0){
+        }elseif(intval($temporada)==0){
             $estado="mov";
         }
-        if (($obj->getEstadosByNombre($nombre, $temporada))) {
-            echo "echo";
-            ($obj->editarEstadosCapitulo($nombre, $temporada, $capitulo));
+        var_dump ($obj->getEstadosByID($nombre, $temporada)[0]);
+        echo "\n$nombre";
+        echo "\n";
+        var_dump ($obj->getEstadosByNombre($nombre, $temporada)[0]);
+        echo "\n";
+        var_dump ($obj->getAnimeByNombre("Z"));
+        echo "\n";
+
+        if (($obj->getEstadosByID($nombre, $temporada)[0])!=0) {
+            echo "ENTRA";
+            echo ($obj->editarEstadosCapitulo($nombre, $temporada, $capitulo));
             ($obj->editarEstadosEstado($nombre, $temporada, $estado));
-        }else {
+        }elseif(!($obj->getEstadosByID($nombre, $temporada)[0])) {
+            echo "¿ENTRA?";
             $obj->subirEstados($nombre, $temporada, $capitulo, $estado);
+        }else{
+            echo "La clave está bien, pero nada más";
         }
     }else{
         echo "Algo salió mal";

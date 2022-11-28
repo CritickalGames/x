@@ -32,6 +32,10 @@ class ModeloAnime extends ModeloConexion
         $sql="SELECT * FROM anime WHERE nombre LIKE '$Inicial%'";
         return $this->get($sql);
     }
+    public function getByNombre($Nombre){
+        $sql="SELECT * FROM anime WHERE nombre = '$Nombre'";
+        return $this->get($sql);
+    }
 ///////////////////////////////
     public function get_ALL(){
         $sql="SELECT * FROM anime";

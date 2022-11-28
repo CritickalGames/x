@@ -22,7 +22,9 @@ class ModeloConexion
   }
 
   public function sentencia(string $sql){
-    $this->consultar($sql);
+    if ($this->consultar($sql)) {
+      return "-ENTRÉ";
+    }
   }
 
   public function get(string $sql){

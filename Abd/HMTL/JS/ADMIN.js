@@ -7,8 +7,6 @@ function main() {
     
     document.getElementById("nombreANIME")
         .addEventListener("keyup", actualizarLista);
-    document.getElementById("nombreANIME")
-        .addEventListener("change", actualizarLista);
     document.getElementById("sANIME")
         .addEventListener("change", selectAnime);
     document.getElementById("btnANIME")
@@ -22,10 +20,10 @@ function actualizarLista() {
         case "Contar":
         break;
         case "Nuevo Capitulo":
-            BuscarAnimeAll(["ANIME", nombre]);
+            BuscarAnimeNombre(["ANIME", nombre]);
         break;
         case "Editar Estado":
-            BuscarAnimeAll(["ANIME", nombre]);
+            BuscarAnimeNombre(["ANIME", nombre]);
         break;
         case "Buscar":
             BuscarAnimeAll(["ANIME", nombre]);
@@ -142,6 +140,7 @@ function btnAnime() {
             SubirEstado(["ESTADOS", nombre, temporada, capitulo, estado]);
         break;
         case "Editar Estado":
+            EditarEstado(["ESTADOS", nombre, temporada, estado]);
         break;
         case "Opinión":
         break;
@@ -163,6 +162,7 @@ function tablaAnime(elemento, fila) {
         nombre.setAttribute("class", "btn-success text-dark");
         nombre.addEventListener("click", (e)=>{
             $("#nombreANIME").val(nombre.innerText);
+            actualizarLista();
         });
         
     }else{
@@ -208,7 +208,8 @@ function SubirAnime(valores) {
         data:{nombre:valores[1]},
         //dataType: "json",
         success:function(res){
-            alert(res);
+            //alert(res);
+            actualizarLista();
             //valores[1] = valores[1].charAt(0);
             //alert(valores[1]);
             //ListarPorInicialAnime(["ANIME", valores[1]]);
@@ -224,9 +225,9 @@ function BorrarAnime(valores) {
         data:{nombre:valores[1]},
         success:function(res){
             //alert(res);
-            //valores[1] = valores[1].charAt(0);
-            //ListarPorInicialAnime(["ANIME", valores[1]]);
-            //alert(res);
+            $("#nombreANIME").val(($("#nombreANIME").val().charAt(0)));
+            actualizarLista();
+            $("#nombreANIME").val("");
         }
     });
 }
@@ -340,7 +341,24 @@ function ContarAnime(valores) {
     });
 }
 
+function EditarEstado(valores) {
+    $.ajax({
+        type:"POST",
+        url:"PHP/"+valores[0]+"/Editar.php",
+        data:{nombre:valores[1],temporada:valores[2],estado:valores[3]},
+        success:function(res){
+            actualizarLista()
+
+            //alert(res);
+            //valores[1] = valores[1].charAt(0);
+            //ListarPorInicialAnime(["ANIME", valores[1]]);
+            //alert(res);
+        }
+    });
+}
+
 function SubirEstado(valores) {
+
     $.ajax({
         type:"POST",
         url:"PHP/"+valores[0]+"/Subir.php",
@@ -348,9 +366,6 @@ function SubirEstado(valores) {
         success:function(res){
             actualizarLista()
 
-            //alert(res);
-            //valores[1] = valores[1].charAt(0);
-            //ListarPorInicialAnime(["ANIME", valores[1]]);
             //alert(res);
         }
     });

@@ -5,15 +5,15 @@ require_once "MConexion.php";
 
 class ModeloEstados extends ModeloConexion
 {
-    public function set($nombre, $Temporada, $Capitulo, $Estados)
+    public function set($nombre, $temporada, $Capitulo, $Estados)
     {
-        $sql = "INSERT INTO Estados (nombre, Temporada, Capitulo, Estado) 
-            VALUES ('$nombre', '$Temporada', '$Capitulo', '$Estados')";
+        $sql = "INSERT INTO Estados (nombre, temporada, Capitulo, Estado) 
+            VALUES ('$nombre', '$temporada', '$Capitulo', '$Estados')";
         $this->sentencia($sql);
     }
 ///////////////////Borrar
-    public function borrar($nombre, $Temporada){
-        $sql = "DELETE FROM Estados WHERE nombre='$nombre', Temporada='$Temporada' ";
+    public function borrar($nombre){
+        $sql = "DELETE FROM Estados WHERE nombre='$nombre'";
         $this->sentencia($sql);
     }
 ///////////////////Search
@@ -22,22 +22,26 @@ class ModeloEstados extends ModeloConexion
         return $this->get($sql);
     }
 ///////////////////Edit
-    public function editarCapitulo($nombre, $Temporada, $ATR){
+    public function editarCapitulo($nombre, $temporada, $ATR){
         $sql = "UPDATE Estados 
         SET capitulo='$ATR' 
-        WHERE nombre='$nombre' AND Temporada='$Temporada' ";
-        $this->sentencia($sql);
+        WHERE nombre='$nombre' AND temporada='$temporada' ";
+        return "-ENTRA".$this->sentencia($sql);
     }
 
-    public function editarEstado($nombre, $Temporada, $ATR){
+    public function editarEstado($nombre, $temporada, $ATR){
         $sql = "UPDATE Estados
         SET estado='$ATR' 
-        WHERE nombre='$nombre' AND Temporada='$Temporada'";
+        WHERE nombre='$nombre' AND temporada='$temporada'";
         $this->sentencia($sql);
     }
 ///////////////////Get
     public function getByNombre($nombre){
         $sql="SELECT * from Estados where nombre='$nombre'";
+        return $this->get($sql);
+    }
+    public function getByID($nombre, $temporada){
+        $sql="SELECT * from Estados where nombre='$nombre' AND temporada='$temporada'";
         return $this->get($sql);
     }
 ///////////////////Group

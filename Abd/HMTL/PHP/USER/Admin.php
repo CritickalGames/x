@@ -20,9 +20,9 @@ class UserAdmin{
 ///////////////////Edit
 
 ///////////////////Get
-        function getEstadosByNombre($name){
+        function getAnimeByNombre($name){
             $obj = new Backoffice ();
-            return $obj->buscar("ANIME", ["Nombre",$name]);
+            return $obj->conseguir("ANIME", ["Nombre",$name]);
         }
 ///////////////////Group
 ///////////////////Listar
@@ -49,9 +49,9 @@ class UserAdmin{
         
 /////////ESTADOS//////////////////////////
 ///////////////////Borrar
-    function borrarEstados($nombre, $Temperatura){
+    function borrarEstados($nombre){
         $obj = new Backoffice ();
-        return $obj->borrar("ESTADOS", [$nombre, $Temperatura]);
+        return $obj->borrar("ESTADOS", [$nombre]);
     }
 ///////////////////Search
     function buscarEstados($name){
@@ -59,15 +59,23 @@ class UserAdmin{
         return $obj->buscar("ESTADOS", [$name]);
     }
 ///////////////////Edit
-    function editarEstadosCapitulo($nombre, $Temperatura, $ATR){
+    function editarEstadosCapitulo($nombre, $temporada, $ATR){
         $obj = new Backoffice ();
-        return $obj->editar("ESTADOS", ["Capitulo",$nombre, $Temperatura, $ATR]);
+        return $obj->editar("ESTADOS", ["Capitulo",$nombre, $temporada, $ATR]);
     }
     function editarEstadosEstado($nombre, $Temperatura, $ATR){
         $obj = new Backoffice ();
         return $obj->editar("ESTADOS", ["Estado",$nombre, $Temperatura, $ATR]);
     }
 ///////////////////Get
+        function getEstadosByNombre($name){
+            $obj = new Backoffice ();
+            return $obj->conseguir("ESTADOS", ["Nombre",$name, "ALL"]);
+        }
+        function getEstadosByID($nombre, $temporada){
+            $obj = new Backoffice ();
+            return $obj->conseguir("ESTADOS", ["ID",$nombre, $temporada]);
+        }
 ///////////////////Group
     function agruparEstadosForTemporadaByNombre($nombre){
         $obj = new Backoffice ();
