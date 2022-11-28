@@ -61,6 +61,7 @@ function selectAnime() {
             $("#opinon").prop('disabled', true);
         break;
         case "Buscar":
+            $("#btnANIME").prop('disabled', true);
             $("#temporadaESTADO").prop('disabled', true);
             $("#capituloESTADO").prop('disabled', true);
             $("#estadoESTADO").prop('disabled', true);
