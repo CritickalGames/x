@@ -16,10 +16,10 @@ require_once "../USER/Admin.php";
     if (($nombre!= NULL)&&($temporada!= NULL)) {
         if ($capitulo=="0") {
             $estado="ver";
-        }elseif (intval($capitulo)>0) {
-            $estado="vie";
         }elseif(intval($temporada)==0){
-            $estado="mov";
+            $estado="ver pelicula";
+        }elseif (intval($capitulo)>0) {
+            $estado="viendo";
         }
         var_dump ($obj->getEstadosByID($nombre, $temporada)[0]);
         echo "\n$nombre";

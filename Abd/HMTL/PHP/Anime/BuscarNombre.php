@@ -2,12 +2,11 @@
 require_once "../USER/Admin.php";
     $objUserAdmin = new UserAdmin();
     $nombre = $_POST['nombre'];
-    //$nombre = "Date";
+    //$nombre = "Z";
     //$nombre = "a";
     if (($nombre!=NULL)) {
         $animes=($objUserAdmin->buscarAnimeNombre($nombre));
         $estados=($objUserAdmin->agruparEstadosForTemporadaByNombre($nombre));
-
         foreach ($animes as $key => $value) {
             $array;
             $array[$key]=$value;
@@ -15,8 +14,6 @@ require_once "../USER/Admin.php";
                 if ($estadoV) {
                     if (($value["nombre"]==$estadoV["nombre"])) {
                         $array[$key]=$estadoV;
-                    }else {
-                        break;
                     }
                 }
             }

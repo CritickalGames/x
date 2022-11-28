@@ -46,20 +46,24 @@ class ModeloEstados extends ModeloConexion
     }
 ///////////////////Group
     public function groupForTemporadaByNombre($nombre){
-        $sql="SELECT nombre, max(temporada) AS temporada, max(capitulo) AS capitulo, estado from Estados
-            WHERE nombre LIKE '$nombre%' 
-            GROUP BY nombre";
+        $sql="SELECT * FROM estados e
+        WHERE EXISTS(
+            SELECT nombre, max(temporada) AS temporada, capitulo, estado FROM estados
+            WHERE nombre LIKE '$nombre%' AND 
+                e.nombre= nombre
+            GROUP BY nombre
+            HAVING e.temporada= temporada
+        )";
         return $this->get($sql);
     }
     public function groupForTemporadaByATRNombre(){
-        $sql="SELECT nombre, max(temporada) AS temporada, max(capitulo) AS capitulo, estado from Estados
-            GROUP BY nombre";
-        return $this->get($sql);
-    }
-    public function groupForTemporadaByInicial($nombre){
-        $sql="SELECT nombre, max(temporada) AS temporada, max(capitulo) AS capitulo, estado from Estados
-            WHERE nombre LIKE '$nombre%' 
-            GROUP BY nombre;";
+        $sql="SELECT * FROM estados e
+        WHERE EXISTS(
+            SELECT nombre, max(temporada) AS temporada, capitulo, estado FROM estados
+            WHERE e.nombre= nombre
+            GROUP BY nombre
+            HAVING e.temporada= temporada
+        )";
         return $this->get($sql);
     }
 ///////////////////////////////

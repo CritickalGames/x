@@ -38,9 +38,6 @@ class ControladorEstados extends ModeloEstados
     public function agruparForTemporadaByATRNombre(){
         return $this->groupForTemporadaByATRNombre();
     }
-    public function agruparForTemporadaByInicial($nombre){
-        return $this->groupForTemporadaByInicial($nombre);
-    }
 ///////////////////Listar
     public function listarEstadosByAll(){
         return $this->get_All();

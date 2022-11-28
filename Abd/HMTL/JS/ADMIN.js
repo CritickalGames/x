@@ -104,7 +104,6 @@ function selectAnime() {
             $("#opinon").prop('disabled', true);
         break;
         case "Nuevo Capitulo":
-            $("#estadoESTADO").prop('disabled', true);
             $("#opinon").prop('disabled', true);
         break;
     
@@ -157,11 +156,13 @@ function tablaAnime(elemento, fila) {
     let nombre = fila.insertCell();
     if (elemento.nombre) {
         nombre.innerHTML=elemento.nombre;
+        let temporada= elemento.temporada;
         
         nombre.setAttribute("style", "cursor:pointer");
         nombre.setAttribute("class", "btn-success text-dark");
         nombre.addEventListener("click", (e)=>{
             $("#nombreANIME").val(nombre.innerText);
+            $("#temporadaESTADO").val(temporada);
             actualizarLista();
         });
         
@@ -208,7 +209,7 @@ function SubirAnime(valores) {
         data:{nombre:valores[1]},
         //dataType: "json",
         success:function(res){
-            //alert(res);
+            alert(res);
             actualizarLista();
             //valores[1] = valores[1].charAt(0);
             //alert(valores[1]);
@@ -275,7 +276,7 @@ function BuscarAnimeNombre(valores) {
 }
 
 function ListarPorInicialAnime(valores) {
-    $("#noBorrar").nextAll("tr").remove();//AGREGAR UNA ANIMACIÓN AL DESAPARECER Y REAPARECER
+    $("#noBorrar").nextAll("tr").remove();
 
     $.ajax({
         type:"POST",
@@ -349,7 +350,7 @@ function EditarEstado(valores) {
         success:function(res){
             actualizarLista()
 
-            //alert(res);
+            alert(res);
             //valores[1] = valores[1].charAt(0);
             //ListarPorInicialAnime(["ANIME", valores[1]]);
             //alert(res);
@@ -366,7 +367,7 @@ function SubirEstado(valores) {
         success:function(res){
             actualizarLista()
 
-            //alert(res);
+            alert(res);
         }
     });
 }

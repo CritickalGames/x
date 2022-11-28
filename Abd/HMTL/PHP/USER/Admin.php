@@ -87,7 +87,7 @@ class UserAdmin{
     }
     function agruparEstadosForTemporadaByInicial($nombre){
         $obj = new Backoffice ();
-        return $obj->agrupar("ESTADOS", ["ForTemporadaByInicial", $nombre]);
+        return $obj->agrupar("ESTADOS", ["ForTemporadaByNombre", $nombre]);
     }
 ///////////////////Listar
     function listarEstados(){
