@@ -1,18 +1,17 @@
 <?php
-$valor= "Hola";
-    class habitaciones{
-        function comprobarReserva(){
-            echo "Adiós";
-        }
+require("PHP/USER/Admin.php");
 
-        function solicitarReserva(){
-            echo "Recerba esto, por favor";
-        }
-    }
+$objAdmin               = new UserAdmin();
+$objControladorAnime    = new ControladorAnime();
+$objModeloAnime         = new ModeloAnime();
+$objModeloConexion      = new ModeloConexion();
 
-    class hab{
-        function comprobarReserva(){
-            echo "Hazlo, por favor";
-        }
-    }
+
+echo($objAdmin->borrarAnime("Z"));
+//echo($objModeloConexion->colTOatr("z, j, a, b, c", "tetas", "quiero", "YO"));
+
 ?>
+<form action="PHP/ANIME/BuscarNombre.php?nombre=a" method="post">
+    <input type="text" name="nombre">
+    <button type="submit">Pulsa</button>
+</form>
